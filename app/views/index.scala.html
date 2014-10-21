@@ -1,7 +1,57 @@
 @(message: String)
 
-@main("Welcome to Play") {
+@main("Welcome to FetchMeARestaurant") {
 
-    @play20.welcome(message, style = "Java")
-
+<link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/ticker-style.css")'  />
+<!--<link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/tickerstyle.css")'  />-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.ticker.js")" ></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/site.js")" ></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.cycle2.min.js")" ></script>
+<script type="text/javascript">
+        $(function () {
+            $('#js-news').ticker();
+            $('#my_div').cycle({
+                fx:    'fade',
+                speed:  2500
+            });
+        });
+        </script>
+<style>
+    ul {
+        margin:0;
+        padding:0;
+        border:0;
+        outline:0;
+        font-size:100%;
+        vertical-align:baseline;
+        background:transparent;
+    }
+    #my_div {
+        width:auto; margin-left:160px;
+    }
+    #spaceholder {
+        height:350px;
+    }
+</style>
+<div id="content">
+    <ul id="js-news" class="js-hidden">
+        <li class="news-item"><a href="#">Dr. Hung's wife Xiaoshu has been pregnant for 21 weeks!</a></li>
+        <li class="news-item"><a href="#">Dr. Hung has been published a paper in <em>Physical Review B.</em></a></li>
+        <li class="news-item"><a href="#">Congratulations to Dr. Hung's new position in XappMedia as principal software developer!</a></li>
+        <li class="news-item"><a href="#">Dr. Hung's paper has been accepted for publication in Jounral Applied Physics.</a></li>
+    </ul>
+    <div id="my_div" align="center">
+        <img src="@routes.Assets.at("images/demo1.jpg")" class="theLogo"  />
+        <img src="@routes.Assets.at("images/demo2.jpg")" class="theLogo" />
+        <img src="@routes.Assets.at("images/demo3.jpg")" class="theLogo" />
+        <img src="@routes.Assets.at("images/demo4.jpg")" class="theLogo" />
+    </div>
+    <div id="spaceholder"></div>
+    <br>
+    <p>Welcome to FetchMeARestaurant! Do you always feel left behind about the nearby restaurant information? Have you ever been surprised and frustrated when your friends
+    talked about the restaurants which locate nearby you but you have no idea what it is? You know what? This will no longer happen to you EVER again.
+    FetchMeARestaurant will keep you posted about the restaurant information around you no matter it's a new restaurant or it's a popular restaurant.
+    From now on, you will no longer feel upset when others talk about the restaurants right next to where you live!</p>
+</div>
 }

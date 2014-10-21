@@ -1,15 +1,96 @@
 @(title: String)(content: Html)
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Ling Hung's homepage." />
+    <meta name="keywords" content="Ling, Hung, HAMR, plasmon" />
+    <meta name="author" content="Ling Hung" />
+    <title>@title</title>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/my_style.css")">
+    <link rel="stylesheet" href='@routes.Assets.at("stylesheets/jquery-ui-1.10.0.custom.css")' />
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/http_code.jquery.com_jquery-2.0.0.js")" ></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/my_code.js")"></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/jquery-ui-1.10.0.custom.js")' ></script>
+    <style>
+        div
+        {
+            border:0px solid;
+        }
+        /* Look and feel of buttons when not selected */
+        .ui-button {
+            background-image: none;
+            background-color: #16193B;
+            color: white; width:100%;
+            height: 33px; padding-top: 8px;
+            font-size: 16pt;
+            border-radius: 5pt;
+        }
+        #header {
+            width:1000px; margin:0 0 0px 0px;
+            height:150px; padding-top:30px; padding-left:40px;
+        }
+        p.abstract{
+            font-family: "Times New Roman",
+            Times, serif;
+            font-size: 1em;
+            background-color: gainsboro;
+            /*     background-color: #b0c4de;  */
+            padding: 20px 10px;
+        }
+        #sidebar{float:left; width:165px; padding-top: 25px;}
+        #content {width:800px; margin-left:190px;}
+        .contact {text-align: center;}
+        h1 {font-size:4em; padding:0px 0 0 0; margin:0;}
+        h2 {font-size:2.4em; margin:0 0 0px 0;}
+        h3 {font-size:1.8em;}
+        p.slogan {font-size:1.4em;padding:5px 0 15px 40px;font-style: italic}
+        div.contact{text-align:center;}
+        #footer {width:680px; clear:both; margin:0px 0 0px 0px; color:#000000; font-size:1em;}
 
-<html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+        /* Align Period with Experience Title */
+        .ExperienceTitle{
+            float:left;
+            font-weight:bold;
+        }
+        li.ProfessionExp{
+            clear:both;
+        }
+
+    </style>
+</head>
+<script type=text/javascript>
+    $( "#tabs" ).tabs({
+
+    });
+</script>
+
+<body>
+<div id="wrap" style="background-color: whitesmoke" >
+    <div id="header">
+        <h2>FetchMeARestaurant</h2>
+        <p class="slogan">
+            No need to worry about running out things to eat, we will find one for you!
+        </p>
+    </div>
+    <div id="sidebar">
+        <table border="0">
+            <tr><td><a class="ui-button" href="/Index">Home</a></td></tr>
+            <tr><td><a class="ui-button" href="/Resume">Resume</a></td></tr>
+            <tr><td><a class="ui-button" href="/Research">Research</a></td></tr>
+            <tr><td><a class="ui-button" href="/Publication">Publications</a></td></tr>
+            <tr><td><a class="ui-button" href="/contact">Contact</a></td></tr>
+            <tr><td><a class="ui-button" href="/homeal">Homeal</a></td></tr>
+            <tr><td><a href="http://www.linkedin.com/pub/ling-hung/50/140/a8a"><img src="@routes.Assets.at("images/linkedin_group_button.jpg")" alt="Join our group on LinkedIn" width="160" height="33" vspace="0" border="0" /></a></td></tr>
+            <tr><td><a href="http://www.twitter.com/eceumd"><img src="@routes.Assets.at("images/twitter_follow_us.png")" alt="Follow us on Twitter" border="0" vspace="0" /></a></td></tr>
+            <tr><td><a href="https://www.facebook.com/ling.hung.313"><img src="@routes.Assets.at("images/facebook_find_us.jpg")" alt="Follow us on Facebook" width="160" height="47" vspace="0" border="0" /></a></td></tr>
+        </table>
+    </div>
+    @content
+    <div id="footer">
+        <p>Copyright &copy; Homeal Inc. 2014</p>
+    </div>
+</div>
+</body>
 </html>
