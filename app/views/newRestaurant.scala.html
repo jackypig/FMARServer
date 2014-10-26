@@ -1,0 +1,53 @@
+@main("New Restaurant") {
+<script type="text/javascript">
+    var OrderDetail = {
+        initialize: function () {
+            $("#saveButton").button();
+            $("#saveButton").click(OrderDetail.onSaveClick);
+        },
+
+        onSaveClick: function () {
+            $("#orderForm").submit();
+        }
+    }
+    $(function () {
+        OrderDetail.initialize();
+    });
+</script>
+<div id="content">
+    <form id="orderForm" method="POST" action="/saveRestaurant">
+        <table width="100%" border="0">
+            <tr>
+                <td align="right">Restaurant Name</td>
+                <td align="left">
+                    <input type="text" name="name">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Address</td>
+                <td align="left">
+                    <input type="text" name="location">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Telephone Number</td>
+                <td align="left">
+                    <input type="text" name="telephone">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Introduction</td>
+                <td>
+                    <textarea name="introduction" rows="5" cols="40">
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <input type="submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.newrelic.agent.java</groupId>
+  <artifactId>newrelic-api</artifactId>
+  <version>3.1.1</version>
+  <name>New Relic Java API Jar</name>
+  <description>The New Relic Java Agent Api.</description>
+  <url>https://newrelic.com/</url>
+  <licenses>
+    <license>
+      <url>https://newrelic.com/docs/java/java-agent-license</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>tyler</id>
+      <name>Tyler Bensen</name>
+      <email>tyler@newrelic.com</email>
+    </developer>
+    <developer>
+      <id>saxon</id>
+      <name>Saxon D'Aubin</name>
+      <email>saxon@newrelic.com</email>
+    </developer>
+    <developer>
+      <id>dan</id>
+      <name>Dan Delany</name>
+      <email>ddelany@newrelic.com</email>
+    </developer>
+    <developer>
+      <id>chris</id>
+      <name>Chris Hansen</name>
+      <email>chansen@newrelic.com</email>
+    </developer>
+    <developer>
+      <id>roger</id>
+      <name>Roger Hart</name>
+      <email>roger@newrelic.com</email>
+    </developer>
+    <developer>
+      <id>ashley</id>
+      <name>Ashley Puls</name>
+      <email>ashley@newrelic.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@github.com:newrelic/java_agent.git</connection>
+    <url>git@github.com:newrelic/java_agent.git</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.+</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>1.+</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
