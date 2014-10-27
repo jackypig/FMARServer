@@ -9,6 +9,7 @@ object ApplicationBuild extends Build {
     val appVersion = conf.getString("application.version")
 
     val appDependencies = Seq(
+      "com.amazonaws" % "aws-java-sdk" % "1.7.5",
       "mysql" % "mysql-connector-java" % "5.1.22"
     )
 

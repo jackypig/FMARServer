@@ -7,8 +7,8 @@ import java.util.Map;
 
 /**
  * User: Ling Hung
- * Comp: XappMedia, Inc.
- * Proj: xapp-server
+ * Comp: FetchMeARestaurant, Inc.
+ * Proj: fmar-server
  * Date: 10/25/14
  * Time: 5:08 PM
  */

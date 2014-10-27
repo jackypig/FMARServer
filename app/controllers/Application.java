@@ -1,5 +1,6 @@
 package controllers;
 
+import core.Global;
 import models.Restaurant;
 import play.*;
 import play.mvc.*;
@@ -41,8 +42,10 @@ public class Application extends FmarController {
         restaurant.introduction = formValue("introduction");
         restaurant.save();
 
+        sendNotifications(restaurant);
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
+
         return ok(views.html.restaurants.render(restaurants));
     }
 
@@ -50,5 +53,18 @@ public class Application extends FmarController {
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
         return ok(views.html.restaurants.render(restaurants));
+    }
+
+    public static void sendNotifications (Restaurant restaurant) {
+        String email = Global.getSystemEmail();
+        String fromEmail = Global.getSystemEmail();
+        String subject = "A new restaurant named" + restaurant.name + "has been created";
+        String body = "The following are the details of this restaurant: <br><br>" +
+                "Name: " + restaurant.name + "<br>" +
+                "Location: " + restaurant.location + "<br>" +
+                "Phone Number: " + restaurant.telephone + "<br><br>" +
+                "Thanks,<br>" +
+                "The FetchMeARestaurant Team";
+        Global.getEmailService().send(fromEmail, "FetchMeARestaurant Admin", new String[] {email}, subject, body, body);
     }
 }
