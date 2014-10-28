@@ -5,10 +5,12 @@
 
 create table restaurant (
   id                        bigint auto_increment not null,
-  name                      varchar(255) not null,
+  address                   varchar(255) not null,
+  city                      varchar(255) not null,
+  english_name              varchar(255) not null,
+  foreign_name              varchar(255),
+  state                     varchar(255) not null,
   telephone                 varchar(255) not null,
-  location                  varchar(255) not null,
-  introduction              varchar(255) not null,
   created_timestamp         datetime,
   constraint pk_restaurant primary key (id))
 ;

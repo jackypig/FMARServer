@@ -3,14 +3,19 @@ package controllers;
 import core.Global;
 import models.Restaurant;
 import play.*;
+import play.api.mvc.*;
+import play.libs.Json;
 import play.mvc.*;
 
+import play.mvc.Result;
+import play.mvc.Results;
 import views.html.*;
 
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Application extends FmarController {
 
@@ -35,14 +40,16 @@ public class Application extends FmarController {
             restaurant = new Restaurant();
         }
 
-        restaurant.name = formValue("name");
-        restaurant.location = formValue("location");
+        restaurant.englishName = formValue("englishName");
+        restaurant.foreignName = formValue("foreignName");
+        restaurant.address = formValue("address");
+        restaurant.state = formValue("state");
+        restaurant.city = formValue("city");
         restaurant.telephone = formValue("telephone");
         restaurant.createdTimestamp = new Date();
-        restaurant.introduction = formValue("introduction");
         restaurant.save();
 
-        sendNotifications(restaurant);
+//        sendNotifications(restaurant);
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
 
@@ -58,13 +65,26 @@ public class Application extends FmarController {
     public static void sendNotifications (Restaurant restaurant) {
         String email = Global.getSystemEmail();
         String fromEmail = Global.getSystemEmail();
-        String subject = "A new restaurant named" + restaurant.name + "has been created";
+        String subject = "A new restaurant named <" + restaurant.englishName + "> has been created";
         String body = "The following are the details of this restaurant: <br><br>" +
-                "Name: " + restaurant.name + "<br>" +
-                "Location: " + restaurant.location + "<br>" +
+                "Name: " + restaurant.englishName + "<br>" +
+                "Location: " + restaurant.address + "<br>" +
                 "Phone Number: " + restaurant.telephone + "<br><br>" +
                 "Thanks,<br>" +
                 "The FetchMeARestaurant Team";
         Global.getEmailService().send(fromEmail, "FetchMeARestaurant Admin", new String[] {email}, subject, body, body);
+    }
+
+    public static Result deleteRestaurant(Long Id) {
+        Restaurant restaurant = Restaurant.findById(Id);
+        restaurant.delete();
+//        return ok(RestController.success().toJson());
+        return ok(Json.toJson(true));
+    }
+
+    public static List<Restaurant> pickRestaurants(int numberOfRestaurantToShow) {
+        List<Restaurant> restaurants = Restaurant.findAll();
+//        Random random = new Random();
+        return restaurants;
     }
 }

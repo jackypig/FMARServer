@@ -23,16 +23,22 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
     public Long id;
 
     @Basic(optional=false)
-    public String name;
+    public String address;
+
+    @Basic(optional=false)
+    public String city;
+
+    @Basic(optional=false)
+    public String englishName;
+
+    @Basic(optional=true)
+    public String foreignName;
+
+    @Basic(optional=false)
+    public String state;
 
     @Basic(optional=false)
     public String telephone;
-
-    @Basic(optional=false)
-    public String location;
-
-    @Basic(optional=false)
-    public String introduction;
 
     @Basic(optional=true) @Temporal(TemporalType.TIMESTAMP)
     public Date createdTimestamp;
@@ -56,10 +62,10 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
 
     @Override
     public int compareTo(Restaurant restaurant) {
-        if (restaurant.name != this.name) {
-            return this.name.compareTo(restaurant.name);
+        if (restaurant.englishName != this.englishName) {
+            return this.englishName.compareTo(restaurant.englishName);
         }
 
-        return this.name.compareToIgnoreCase(restaurant.name);
+        return this.englishName.compareToIgnoreCase(restaurant.englishName);
     }
 }

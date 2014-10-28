@@ -16,9 +16,9 @@
 <script type="text/javascript" language="javascript" src='@routes.Assets.at("lib/datatables-1.9.4/jquery.dataTables.js")'></script>
 
 <script type="text/javascript" >
-//    var AdList = {
-//        initialize: function () {
-//                tableOptions = {
+    var RestaurantList = {
+        initialize: function () {
+//            tableOptions = {
 //                "aaSorting" : [[0, "asc"]],
 //                "bFilter": true,
 //                "bInfo": false,
@@ -26,25 +26,23 @@
 //                "bJQueryUI": false,
 //                "bPaginate": false,
 //                "iDisplayLength": 100,
-//                "oLanguage": {
-//                    "sEmptyTable": " "
-//                },
+//                "oLanguage": {"sEmptyTable": " "},
 //                "sPaginationType": "full_numbers"
 //            };
 //
 //            setTimeout(function() {
 //                $( "#restaurants" ).dataTable(tableOptions)
 //            }, 20);
-//
-//            $( ".buttonLink" ).button();
-//        },
-//
-//        newRestaurantClicked: function () {
-//            var newUrl = "/adDetail/new";
-//            window.location = newUrl;
-//        },
-//
-//        deleteClicked: function (adId) {
+
+            $( ".buttonLink" ).button();
+        },
+
+        newRestaurantClicked: function () {
+            var newUrl = "/adDetail/new";
+            window.location = newUrl;
+        },
+
+        deleteClicked: function (Id) {
 //            Confirm.show("Confirm Delete",
 //                    "Are you sure you want to delete this restaurant?",
 //                    function () {
@@ -56,38 +54,50 @@
 //                                }
 //                            }
 //                        });
-//                        window.location = "/adList";
+                        var url = "/deleteRestaurant?id=" + Id;
+
+//                        BusyDialog.show("Deleting Ad", 750);
+                        $.ajaxSetup({async:true, cache: false});
+                        $.getJSON(url, null, function (status) {
+//                            BusyDialog.hide(function () {
+//                                callback.call(this, status);
+//                            });
+                        });
+                        window.location = "/restaurantList";
 //                    }
 //            );
-//        }
-//
-//    }
-//
-//    $(function() {
-//        AdList.initialize();
-//    })
+        }
+
+    }
+
+    $(function() {
+        RestaurantList.initialize();
+    })
 </script>
 
 <div id="content">
     <table id="restaurants" border="0" cellspacing="0" cellpadding="0" class="ui-widget" width="100%" style="">
         <thead>
         <tr>
-            <th align="left">Name</th>
-            <th align="left">Location</th>
+            <th align="left">English Name</th>
+            <th align="left">Foreign Name</th>
+            <th align="left">State</th>
+            <th align="left">City</th>
+            <th align="left">Address</th>
             <th align="left">Phone Number</th>
-            <th align="left">Introduction</th>
-            <th align="left">Actions</th>
         </tr>
         </thead>
         @for(restaurant <- restaurants) {
         <tr>
-            <td align="left">@restaurant.name</td>
-            <td align="left">@restaurant.location</td>
+            <td align="left">@restaurant.englishName</td>
+            <td align="left">@restaurant.foreignName</td>
+            <td align="left">@restaurant.state</td>
+            <td align="left">@restaurant.city</td>
+            <td align="left">@restaurant.address</td>
             <td align="left">@restaurant.telephone</td>
-            <td align="left">@restaurant.introduction</td>
             <td align="center" nowrap>
-                <a href="" class="buttonLink">Edit Ad</a>&nbsp;
-                <a href="" class="buttonLink">Delete</a>&nbsp;
+                <a href="" class="buttonLink">Edit</a>&nbsp;
+                <a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;
             </td>
         </tr>
         }
