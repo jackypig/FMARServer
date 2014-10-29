@@ -1,3 +1,5 @@
+@(restaurant: Restaurant)
+
 @main("New Restaurant") {
 <script type="text/javascript">
     var OrderDetail = {
@@ -16,42 +18,59 @@
 </script>
 <div id="content">
     <form id="orderForm" method="POST" action="/saveRestaurant">
+        <input type="hidden" name="restaurantId" value="@restaurant.id">
         <table width="100%" border="0">
             <tr>
                 <td align="right">English Name</td>
                 <td align="left">
-                    <input type="text" name="englishName">
+                    <input type="text" name="englishName" size="30" value="@restaurant.englishName">
                 </td>
             </tr>
             <tr>
                 <td align="right">Foreign Name</td>
                 <td>
-                    <input type="text" name="foreignName">
+                    <input type="text" name="foreignName" value="@restaurant.foreignName">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Category</td>
+                <td>
+                    <select name="category" value="@restaurant.category">
+                        <option value="American" @if(restaurant.category == "American") {selected}>American</option>
+                        <option value="Chinese" @if(restaurant.category == "Chinese") {selected}>Chinese</option>
+                        <option value="Indian" @if(restaurant.category == "Indian") {selected}>Indian</option>
+                        <option value="Mexican" @if(restaurant.category == "Mexican") {selected}>Mexican</option>
+                        <option value="Korean" @if(restaurant.category == "Korean") {selected}>Korean</option>
+                        <option value="Japanese" @if(restaurant.category == "Japanese") {selected}>Japanese</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td align="right">State</td>
                 <td>
-                    <input type="text" name="state">
+                    <select name="state">
+                        <option value="DC" @if(restaurant.state == "DC") {selected}>DC</option>
+                        <option value="MD" @if(restaurant.state == "MD") {selected}>MD</option>
+                        <option value="VA" @if(restaurant.state == "VA") {selected}>VA</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td align="right">City</td>
                 <td>
-                    <input type="text" name="city">
+                    <input type="text" name="city" value="@restaurant.city">
                 </td>
             </tr>
             <tr>
                 <td align="right">Address</td>
                 <td align="left">
-                    <textarea name="address" rows="5" cols="40">
-                    </textarea>
+                    <input type="text" name="address" size="50" value="@restaurant.address">
                 </td>
             </tr>
             <tr>
                 <td align="right">Phone Number</td>
                 <td align="left">
-                    <input type="text" name="telephone">
+                    <input type="tel" name="telephone" value="@restaurant.telephone">
                 </td>
             </tr>
             <tr>

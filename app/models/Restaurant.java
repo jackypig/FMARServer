@@ -26,6 +26,9 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
     public String address;
 
     @Basic(optional=false)
+    public String category;
+
+    @Basic(optional=false)
     public String city;
 
     @Basic(optional=false)

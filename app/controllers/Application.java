@@ -28,7 +28,13 @@ public class Application extends FmarController {
     }
 
     public static Result newRestaurant() {
-        return ok(newRestaurant.render());
+        Restaurant restaurant = new Restaurant();
+        return ok(newRestaurant.render(restaurant));
+    }
+
+    public static Result editRestaurant(Long id) {
+        Restaurant restaurant = Restaurant.findById(id);
+        return ok(newRestaurant.render(restaurant));
     }
 
     public static Result saveRestaurant() {
@@ -42,16 +48,17 @@ public class Application extends FmarController {
 
         restaurant.englishName = formValue("englishName");
         restaurant.foreignName = formValue("foreignName");
-        restaurant.address = formValue("address");
+        restaurant.category = formValue("category");
         restaurant.state = formValue("state");
         restaurant.city = formValue("city");
+        restaurant.address = formValue("address");
         restaurant.telephone = formValue("telephone");
         restaurant.createdTimestamp = new Date();
         restaurant.save();
 
-//        sendNotifications(restaurant);
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
+        sendNotifications(restaurants, 2);
 
         return ok(views.html.restaurants.render(restaurants));
     }
@@ -62,15 +69,24 @@ public class Application extends FmarController {
         return ok(views.html.restaurants.render(restaurants));
     }
 
-    public static void sendNotifications (Restaurant restaurant) {
+    public static void sendNotifications (List<Restaurant> restaurants, int numberOfRestaurantToShow) {
+        Collections.shuffle(restaurants);
         String email = Global.getSystemEmail();
         String fromEmail = Global.getSystemEmail();
-        String subject = "A new restaurant named <" + restaurant.englishName + "> has been created";
-        String body = "The following are the details of this restaurant: <br><br>" +
-                "Name: " + restaurant.englishName + "<br>" +
-                "Location: " + restaurant.address + "<br>" +
-                "Phone Number: " + restaurant.telephone + "<br><br>" +
-                "Thanks,<br>" +
+        String subject = "New restaurants are here";
+        String body = "The following are the details of the new opened restaurants: <br><br>";
+
+        for (int i=0; i<numberOfRestaurantToShow; i++) {
+            body += "English Name: " + restaurants.get(i).englishName + "<br>" +
+                    "Foreign Name: " + restaurants.get(i).foreignName + "<br>" +
+                    "Category: " + restaurants.get(i).category + "<br>" +
+                    "State: " + restaurants.get(i).state + "<br>" +
+                    "City: " + restaurants.get(i).city + "<br>" +
+                    "Address: " + restaurants.get(i).address + "<br>" +
+                    "Phone Number: " + restaurants.get(i).telephone + "<br><br>";
+        }
+
+        body += "Thanks,<br>" +
                 "The FetchMeARestaurant Team";
         Global.getEmailService().send(fromEmail, "FetchMeARestaurant Admin", new String[] {email}, subject, body, body);
     }
@@ -84,7 +100,7 @@ public class Application extends FmarController {
 
     public static List<Restaurant> pickRestaurants(int numberOfRestaurantToShow) {
         List<Restaurant> restaurants = Restaurant.findAll();
-//        Random random = new Random();
+        Random random = new Random();
         return restaurants;
     }
 }

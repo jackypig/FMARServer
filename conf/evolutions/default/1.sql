@@ -6,6 +6,7 @@
 create table restaurant (
   id                        bigint auto_increment not null,
   address                   varchar(255) not null,
+  category                  varchar(255) not null,
   city                      varchar(255) not null,
   english_name              varchar(255) not null,
   foreign_name              varchar(255),

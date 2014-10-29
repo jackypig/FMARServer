@@ -34,7 +34,7 @@
 //                $( "#restaurants" ).dataTable(tableOptions)
 //            }, 20);
 
-            $( ".buttonLink" ).button();
+//            $( ".buttonLink" ).button();
         },
 
         newRestaurantClicked: function () {
@@ -66,8 +66,11 @@
                         window.location = "/restaurantList";
 //                    }
 //            );
-        }
+        },
 
+        editClicked: function(Id) {
+            window.location = "/editRestaurant?id=" + Id;
+        }
     }
 
     $(function() {
@@ -76,11 +79,12 @@
 </script>
 
 <div id="content">
-    <table id="restaurants" border="0" cellspacing="0" cellpadding="0" class="ui-widget" width="100%" style="">
+    <table id="restaurants" border="0" cellspacing="0" cellpadding="0"  width="100%" style="">
         <thead>
         <tr>
             <th align="left">English Name</th>
             <th align="left">Foreign Name</th>
+            <th align="left">Category</th>
             <th align="left">State</th>
             <th align="left">City</th>
             <th align="left">Address</th>
@@ -91,13 +95,16 @@
         <tr>
             <td align="left">@restaurant.englishName</td>
             <td align="left">@restaurant.foreignName</td>
+            <td align="left">@restaurant.category</td>
             <td align="left">@restaurant.state</td>
             <td align="left">@restaurant.city</td>
             <td align="left">@restaurant.address</td>
             <td align="left">@restaurant.telephone</td>
             <td align="center" nowrap>
-                <a href="" class="buttonLink">Edit</a>&nbsp;
-                <a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;
+                <button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
+                <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->
+                <button onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
+                <!--<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;-->
             </td>
         </tr>
         }
