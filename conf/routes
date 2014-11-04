@@ -9,7 +9,10 @@ GET     /newRestaurant              controllers.Application.newRestaurant()
 GET     /restaurantList             controllers.Application.restaurantList()
 GET     /deleteRestaurant           controllers.Application.deleteRestaurant(id: Long)
 GET     /editRestaurant             controllers.Application.editRestaurant(id: Long)
+GET     /loginPage                  controllers.Application.loginPage()
+GET     /register                   controllers.Application.register()
 POST    /saveRestaurant             controllers.Application.saveRestaurant()
+POST    /saveUser                   controllers.Application.saveUser()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

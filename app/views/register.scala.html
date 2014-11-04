@@ -1,0 +1,122 @@
+@main("Register") {
+    <script type="text/javascript">
+        var RegisterPage = {
+            initialize: function () {
+                $( "#registerButton" ).click(function () {
+                    RegisterPage.submit();
+                });
+
+                $(" input ").keypress(function(e) {
+                    if ( e.which == 13 ) {
+                        RegisterPage.submit();
+                    }
+                });
+            },
+
+            submit: function () {
+                if (false == RegisterPage.validate()) {
+                    return;
+                }
+//                BusyDialog.show("Registering User...", 1000);
+                $.post('/saveUser', $( "#registerForm" ).serialize(), function (response, status) {
+//                    BusyDialog.hide();
+                    if (status === "success") {
+                        if (response.success) {
+//                            Alert.show("Saved", "Registered Successfully!", function () {
+                                window.location = response.nextUrl;
+//                            });
+                            return;
+                        } else {
+//                            Alert.show("Error", response.errorMessage);
+                            return;
+                        }
+                    } else {
+//                        Alert.show("Error", "Error registering. Please try again.");
+                    }
+                });
+            },
+
+            validate: function() {
+//                if (!Validation.validateRequired("firstName", "First Name")) {
+//                    return false;
+//                }
+//
+//                if (!Validation.validateRequired("lastName", "Last Name")) {
+//                    return false;
+//                }
+//
+//                if (!Validation.validateRequired("email", "Email") || !Validation.validateEmail("email", "Email")) {
+//                    return false;
+//                }
+//
+//                if (!Validation.validateRequired("company", "Company")) {
+//                    return false;
+//                }
+//
+//                if (!Validation.validateRequired("password", "Password")) {
+//                    return false;
+//                }
+//
+//                if (!Validation.validateRequired("confirmPassword", "Confirm Password")) {
+//                    return false;
+//                }
+
+                var password = $( "#password" ).val();
+                var confirmPassword = $( "#confirmPassword" ).val();
+                if (password != confirmPassword) {
+//                    Alert.show("Password Invalid", "The password and confirm password fields do not match.");
+                    alert("The password and confirm password fields do not match.");
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        $(function () {
+            RegisterPage.initialize();
+        });
+    </script>
+    <!--<div style="margin-right:auto;margin-left:auto;margin-bottom: 40px;text-align: center">-->
+        <!--<img src='@routes.Assets.at("images/xappmedia.png")' width="400"/>-->
+    <!--</div>-->
+
+    @widgets.dialogInline("Register", 630) {
+    <form name="registerForm" id="registerForm">
+        <table border="0" width="600" style="margin-left:auto; margin-right: auto" class="ui-widget">
+            <tr>
+                <td align="left">First Name:</td>
+                <td align="left"><input type="text" name="firstName" id="firstName" /></td>
+            </tr>
+            <tr>
+                <td align="left">Last Name:</td>
+                <td align="left"><input type="text" name="lastName" id="lastName" /></td>
+            </tr>
+            <tr>
+                <td align="left">Email:</td>
+                <td align="left"><input type="email" name="email" id="email" /></td>
+            </tr>
+            <tr>
+                <td align="left">Access Type:</td>
+                <td align="left">
+                    <select name="loginType">
+                        <option value="GUEST">Guest</option>
+                        <option value="RESTAURANT_REPRESENTATIVE">Restaurant representative</option>
+                        <option value="SUPER_USER">Super User</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">Password:</td>
+                <td align="left"><input type="password" name="password" id="password" /> </td>
+            </tr>
+            <tr>
+                <td align="left">Confirm Password:</td>
+                <td align="left"><input type="password" name="confirmPassword" id="confirmPassword" /> </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right"><button id="registerButton" style="font-weight: bold" type="button" class="jqButton">Save</button></td>
+            </tr>
+        </table>
+    </form>
+    }
+}

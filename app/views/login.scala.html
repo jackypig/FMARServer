@@ -1,0 +1,82 @@
+@main("Login") {
+    <script type="text/javascript">
+        var LoginPage = {
+            initialize: function () {
+                $( "#loginButton" ).click(LoginPage.authenticate);
+                $( "#resetButton" ).button();
+
+                //Handle the user hitting enter
+                $( " input " ).keypress(function(e) {
+                    if(e.which == 13) {
+                        LoginPage.authenticate();
+                    }
+                });
+            },
+
+            authenticate: function () {
+                var email = $( "#email" ).val();
+                var password = $( "#password" ).val();
+
+                AdminService.authenticate( email, password, function (status) {
+    //                if (status.adminType === "SUPER_USER") {
+    //                    window.location = "/publisherManager/list";
+    //                } else {
+                        window.location = "/restaurantList";
+    //                }
+
+                });
+            },
+
+            resetPassword: function () {
+                var email = $( "#resetEmailAddress" ).val();
+                if (email === "") {
+                    Alert.show("Email Blank", "An email address must be entered.");
+                    return;
+                }
+                $( "#forgotPasswordDialog" ).dialog( "close" );
+                AdminService.emailPasswordReset(email, function () {
+                    Alert.show("Resetting Password", "You will receive an email with a link to reset your password.");
+                });
+            },
+
+            showForgotPassword: function () {
+                $( "#forgotPasswordDialog").dialog({
+                    height: "auto",
+                    modal: true,
+                    open: function(event, ui) {
+                        $(".ui-dialog-titlebar-close", this.parentNode).hide();
+                    },
+                    position: {my: "center top+100", at: "center top", of: window},
+                    title: "Reset Password",
+                    width: 450
+                });
+            },
+
+            publisherCreationPage: function () {
+                window.location="/adminManager/register";
+            }
+        }
+
+        $(function () {
+            LoginPage.initialize();
+        });
+    </script>
+    <div id="content">
+        <table border="0" width="50%">
+            <tr>
+                <td align="left">Email:</td>
+                <td><input type="email" name="email" id="email" /></td>
+            </tr>
+            <tr>
+                <td align="left">Password:</td>
+                <td><input type="password" name="password" id="password" /> </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right"><button id="loginButton" type="button" class="jqButton">Login</button></td>
+            </tr>
+            <tr>
+                <td><button style="width: 300px;font-weight: bold" type="button" onclick="javascript:window.location='/register'" class="jqButton">Register</button></td>
+            </tr>
+        </table>
+    </div>
+}

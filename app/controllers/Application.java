@@ -1,7 +1,9 @@
 package controllers;
 
 import core.Global;
+import models.LoginType;
 import models.Restaurant;
+import models.User;
 import play.*;
 import play.api.mvc.*;
 import play.libs.Json;
@@ -9,6 +11,7 @@ import play.mvc.*;
 
 import play.mvc.Result;
 import play.mvc.Results;
+import rest.RestReply;
 import views.html.*;
 
 import java.math.BigDecimal;
@@ -23,6 +26,14 @@ public class Application extends FmarController {
         return ok(index.render("Your new application is ready."));
     }
 
+    public static Result loginPage () {
+        return ok(login.render());
+    }
+
+    public static Result register () {
+        return ok(register.render());
+    }
+
     public static Result admin() {
         return ok(admin.render());
     }
@@ -35,6 +46,31 @@ public class Application extends FmarController {
     public static Result editRestaurant(Long id) {
         Restaurant restaurant = Restaurant.findById(id);
         return ok(newRestaurant.render(restaurant));
+    }
+
+    public static Result saveUser() {
+        User user = new User();
+        user.firstName = parameter(request().body().asFormUrlEncoded(), "firstName");
+        user.lastName = parameter(request().body().asFormUrlEncoded(), "lastName");
+        user.email = parameter(request().body().asFormUrlEncoded(), "email");
+        user.passwordEncrypted = Global.getAuthenticationService().encrypt(parameter(request().body().asFormUrlEncoded(), "password"));
+        user.active = true;
+        user.loginType = LoginType.fromString(parameter(request().body().asFormUrlEncoded(), "loginType"));
+        user.save();
+
+        RegistrationReply reply = new RegistrationReply();
+        reply.success = true;
+        reply.nextUrl = "/restaurantList";
+
+//        if (!SessionManager.isLoggedIn()) {
+//            SessionManager.create(user);
+//        }
+
+        return ok(Json.toJson(reply));
+    }
+
+    public static class RegistrationReply extends RestReply {
+        public String nextUrl;
     }
 
     public static Result saveRestaurant() {
@@ -98,9 +134,5 @@ public class Application extends FmarController {
         return ok(Json.toJson(true));
     }
 
-    public static List<Restaurant> pickRestaurants(int numberOfRestaurantToShow) {
-        List<Restaurant> restaurants = Restaurant.findAll();
-        Random random = new Random();
-        return restaurants;
-    }
+
 }

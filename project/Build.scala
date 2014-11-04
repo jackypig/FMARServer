@@ -10,7 +10,8 @@ object ApplicationBuild extends Build {
 
     val appDependencies = Seq(
       "com.amazonaws" % "aws-java-sdk" % "1.7.5",
-      "mysql" % "mysql-connector-java" % "5.1.22"
+      "mysql" % "mysql-connector-java" % "5.1.22",
+      "com.wordnik" %% "swagger-play2" % "1.3.1" exclude("org.scala-stm", "scala-stm_2.10.0")
     )
 
     val main = play.Project(appName, appVersion, appDependencies).settings(
