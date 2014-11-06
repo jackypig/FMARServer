@@ -38,7 +38,7 @@
         },
 
         newRestaurantClicked: function () {
-            var newUrl = "/adDetail/new";
+            var newUrl = "/restaurantManager/new";
             window.location = newUrl;
         },
 
@@ -54,7 +54,7 @@
 //                                }
 //                            }
 //                        });
-                        var url = "/deleteRestaurant?id=" + Id;
+                        var url = "/restaurantManager/delete?id=" + Id;
 
 //                        BusyDialog.show("Deleting Ad", 750);
                         $.ajaxSetup({async:true, cache: false});
@@ -62,14 +62,14 @@
 //                            BusyDialog.hide(function () {
 //                                callback.call(this, status);
 //                            });
+                            window.location = "/restaurantManager/list";
                         });
-                        window.location = "/restaurantList";
 //                    }
 //            );
         },
 
         editClicked: function(Id) {
-            window.location = "/editRestaurant?id=" + Id;
+            window.location = "/restaurantManager/edit?id=" + Id;
         }
     }
 

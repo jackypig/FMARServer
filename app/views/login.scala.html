@@ -17,7 +17,7 @@
                 var email = $( "#email" ).val();
                 var password = $( "#password" ).val();
 
-                AdminService.authenticate( email, password, function (status) {
+                UserService.authenticate( email, password, function (status) {
     //                if (status.adminType === "SUPER_USER") {
     //                    window.location = "/publisherManager/list";
     //                } else {

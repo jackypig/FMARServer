@@ -8,11 +8,12 @@
     <meta name="keywords" content="Ling, Hung, HAMR, plasmon" />
     <meta name="author" content="Ling Hung" />
     <title>@title</title>
-    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/my_style.css")">
+    <link rel="stylesheet" type="text/css" href='@routes.Assets.at("stylesheets/my_style.css")'>
     <link rel="stylesheet" href='@routes.Assets.at("stylesheets/jquery-ui-1.10.0.custom.css")' />
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/http_code.jquery.com_jquery-2.0.0.js")" ></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/my_code.js")"></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/http_code.jquery.com_jquery-2.0.0.js")' ></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/my_code.js")'></script>
     <script type="text/javascript" src='@routes.Assets.at("javascripts/jquery-ui-1.10.0.custom.js")' ></script>
+    <script type="text/javascript" src='@routes.Assets.at("javascripts/web-services.js")' ></script>
     <style>
         div
         {
@@ -69,7 +70,7 @@
 <body>
 <div id="wrap" style="background-color: whitesmoke" >
     <div id="header">
-        <h2>FetchMeARestaurant</h2>
+        <h2>MDChiShenMe</h2>
         <p class="slogan">
             No need to worry about running out things to eat, we will find one for you!
         </p>
@@ -77,11 +78,11 @@
     <div id="sidebar">
         <table border="0">
             <tr><td><a class="ui-button" href="/">Home</a></td></tr>
-            <tr><td><a class="ui-button" href="/restaurantList">Restaurants</a></td></tr>
+            <tr><td><a class="ui-button" href="/restaurantManager/list">Restaurants</a></td></tr>
             <tr><td><a class="ui-button" href="/register">Register</a></td></tr>
             <tr><td><a class="ui-button" href="/admin">Admin</a></td></tr>
             <tr><td><a class="ui-button" href="/loginPage">Login</a></td></tr>
-            <tr><td><a class="ui-button" href="/newRestaurant">New Restaurant</a></td></tr>
+            <tr><td><a class="ui-button" href="/restaurantManager/new">New Restaurant</a></td></tr>
             <tr><td><a href="http://www.linkedin.com/pub/ling-hung/50/140/a8a"><img src="@routes.Assets.at("images/linkedin_group_button.jpg")" alt="Join our group on LinkedIn" width="160" height="33" vspace="0" border="0" /></a></td></tr>
             <tr><td><a href="http://www.twitter.com/eceumd"><img src="@routes.Assets.at("images/twitter_follow_us.png")" alt="Follow us on Twitter" border="0" vspace="0" /></a></td></tr>
             <tr><td><a href="https://www.facebook.com/ling.hung.313"><img src="@routes.Assets.at("images/facebook_find_us.jpg")" alt="Follow us on Facebook" width="160" height="47" vspace="0" border="0" /></a></td></tr>
@@ -89,7 +90,7 @@
     </div>
     @content
     <div id="footer">
-        <p>Copyright &copy; FetchMeARestaurant Inc. 2014</p>
+        <p>Copyright &copy; MDChiShengMe Inc. 2014</p>
     </div>
 </div>
 </body>

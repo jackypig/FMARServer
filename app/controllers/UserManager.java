@@ -1,6 +1,7 @@
 package controllers;
 
 import core.Global;
+import models.LoginType;
 import models.User;
 import play.Logger;
 import play.libs.Json;
@@ -39,8 +40,33 @@ public class UserManager extends FmarController{
 //        }
 
         Object payload = new RestReply(true) {
-            public String adminType = user.loginType.toString();
+            public String loginType = user.loginType.toString();
         };
         return ok(Json.toJson(payload));
+    }
+
+    public static Result saveUser() {
+        User user = new User();
+        user.firstName = parameter(request().body().asFormUrlEncoded(), "firstName");
+        user.lastName = parameter(request().body().asFormUrlEncoded(), "lastName");
+        user.email = parameter(request().body().asFormUrlEncoded(), "email");
+        user.passwordEncrypted = Global.getAuthenticationService().encrypt(parameter(request().body().asFormUrlEncoded(), "password"));
+        user.active = true;
+        user.loginType = LoginType.fromString(parameter(request().body().asFormUrlEncoded(), "loginType"));
+        user.save();
+
+        RegistrationReply reply = new RegistrationReply();
+        reply.success = true;
+        reply.nextUrl = "/restaurantList";
+
+//        if (!SessionManager.isLoggedIn()) {
+//            SessionManager.create(user);
+//        }
+
+        return ok(Json.toJson(reply));
+    }
+
+    public static class RegistrationReply extends RestReply {
+        public String nextUrl;
     }
 }

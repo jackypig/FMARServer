@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * User: Ling Hung
@@ -60,5 +61,9 @@ public class User extends Model {
 
     public static User findByEmail (String email) {
         return finder.where().eq("email", email).findUnique();
+    }
+
+    public static List<User> findAll () {
+        return finder.all();
     }
 }

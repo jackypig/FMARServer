@@ -2,22 +2,26 @@
 
 @main("New Restaurant") {
 <script type="text/javascript">
-    var OrderDetail = {
+    var NewRestaurant = {
         initialize: function () {
             $("#saveButton").button();
-            $("#saveButton").click(OrderDetail.onSaveClick);
+            $("#saveButton").click(NewRestaurant.onSaveClick);
         },
 
-        onSaveClick: function () {
-            $("#orderForm").submit();
+        onSaveClicked: function () {
+            $("#restaurantForm").submit();
+        },
+
+        onBackClicked: function () {
+            window.location = "/restaurantManager/restaurantList";
         }
     }
     $(function () {
-        OrderDetail.initialize();
+        NewRestaurant.initialize();
     });
 </script>
 <div id="content">
-    <form id="orderForm" method="POST" action="/saveRestaurant">
+    <form id="restaurantForm" method="POST" action="/restaurantManager/saveRestaurant">
         <input type="hidden" name="restaurantId" value="@restaurant.id">
         <table width="100%" border="0">
             <tr>
@@ -76,6 +80,7 @@
             <tr>
                 <td align="right"></td>
                 <td align="center">
+                    <button type="button" onclick="javascript:NewRestaurant.onBackClicked()">Back</button>&nbsp;
                     <input type="submit">
                 </td>
             </tr>

@@ -5,14 +5,19 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET     /admin                      controllers.Application.admin()
-GET     /newRestaurant              controllers.Application.newRestaurant()
-GET     /restaurantList             controllers.Application.restaurantList()
-GET     /deleteRestaurant           controllers.Application.deleteRestaurant(id: Long)
-GET     /editRestaurant             controllers.Application.editRestaurant(id: Long)
 GET     /loginPage                  controllers.Application.loginPage()
 GET     /register                   controllers.Application.register()
-POST    /saveRestaurant             controllers.Application.saveRestaurant()
-POST    /saveUser                   controllers.Application.saveUser()
+
+# User
+GET     /userManager/authenticate   controllers.UserManager.authenticate(email, password)
+POST    /userManager/saveUser       controllers.UserManager.saveUser()
+
+# Restaurant
+GET     /restaurantManager/new      controllers.RestaurantManager.newRestaurant()
+GET     /restaurantManager/list     controllers.RestaurantManager.restaurantList()
+GET     /restaurantManager/delete   controllers.RestaurantManager.deleteRestaurant(id: Long)
+GET     /restaurantManager/edit     controllers.RestaurantManager.editRestaurant(id: Long)
+POST    /restaurantManager/save     controllers.RestaurantManager.saveRestaurant()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

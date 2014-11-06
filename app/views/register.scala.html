@@ -18,7 +18,7 @@
                     return;
                 }
 //                BusyDialog.show("Registering User...", 1000);
-                $.post('/saveUser', $( "#registerForm" ).serialize(), function (response, status) {
+                $.post('/userManager/saveUser', $( "#registerForm" ).serialize(), function (response, status) {
 //                    BusyDialog.hide();
                     if (status === "success") {
                         if (response.success) {
