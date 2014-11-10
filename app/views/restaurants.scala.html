@@ -68,6 +68,35 @@
 //            );
         },
 
+        syncClicked: function () {
+//            Confirm.show("Confirm Delete",
+//                    "Are you sure you want to delete this restaurant?",
+//                    function () {
+//                        AdListService.deleteAd(adId, function () {
+//                            var data = $( "#restaurants" ).dataTable().fnGetData();
+//                            for (var i=0;i<data.length;i++) {
+//                                if (data[i][0] == adId) {
+//                                    $( "#restaurants" ).dataTable().fnDeleteRow(i);
+//                                }
+//                            }
+//                        });
+            var url = "/restaurantManager/sync";
+
+//                        BusyDialog.show("Deleting Ad", 750);
+            $.ajaxSetup({async:true, cache: false});
+            $.getJSON(url, null, function (status) {
+                if (status) {
+                    alert("Restaurant list synchronized");
+                    window.location = "/restaurantManager/list";
+                }
+//                            BusyDialog.hide(function () {
+//                                callback.call(this, status);
+//                            });
+            });
+//                    }
+//            );
+        },
+
         editClicked: function(Id) {
             window.location = "/restaurantManager/edit?id=" + Id;
         }
@@ -108,6 +137,11 @@
             </td>
         </tr>
         }
+        <tr>
+            <td align="left">
+                <button onclick="javascript:RestaurantList.syncClicked()">Sync</button>&nbsp;
+            </td>
+        </tr>
     </table>
     <br>
 </div>

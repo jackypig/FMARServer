@@ -17,6 +17,7 @@ GET     /restaurantManager/new      controllers.RestaurantManager.newRestaurant(
 GET     /restaurantManager/list     controllers.RestaurantManager.restaurantList()
 GET     /restaurantManager/delete   controllers.RestaurantManager.deleteRestaurant(id: Long)
 GET     /restaurantManager/edit     controllers.RestaurantManager.editRestaurant(id: Long)
+GET     /restaurantManager/sync     controllers.RestaurantManager.syncFromGoogleSpreadsheet()
 POST    /restaurantManager/save     controllers.RestaurantManager.saveRestaurant()
 
 # Map static resources from the /public folder to the /assets URL path

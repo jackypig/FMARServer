@@ -1,11 +1,19 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import com.google.gdata.client.spreadsheet.SpreadsheetService;
+import com.google.gdata.data.spreadsheet.*;
+import com.google.gdata.util.ServiceException;
 import core.Global;
 import models.Restaurant;
+import play.Logger;
 import play.libs.Json;
 import play.mvc.Result;
 import views.html.newRestaurant;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +57,7 @@ public class RestaurantManager extends FmarController {
 
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
-        sendNotifications(restaurants, 4);
+//        sendNotifications(restaurants, 4);
 
         return ok(views.html.restaurants.render(restaurants));
     }
@@ -87,5 +95,79 @@ public class RestaurantManager extends FmarController {
         restaurant.delete();
 //        return ok(RestController.success().toJson());
         return ok(Json.toJson(true));
+    }
+
+    public static Result syncFromGoogleSpreadsheet() {
+        try {
+            testSpreadsheet();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return ok(Json.toJson(true));
+    }
+
+    public static void testSpreadsheet() throws MalformedURLException, IOException, ServiceException {
+        SpreadsheetService service =
+                new SpreadsheetService("MySpreadsheetIntegration-v1");
+
+        // TODO: Authorize the service object for a specific user (see other sections)
+
+        service.setUserCredentials("jackypig0906@gmail.com", "Arnold0906");
+
+        // Define the URL to request.  This should never change.
+        URL SPREADSHEET_FEED_URL = new URL(
+                "https://spreadsheets.google.com/feeds/spreadsheets/private/full");
+
+        // Make a request to the API and get all spreadsheets.
+        SpreadsheetFeed feed = service.getFeed(SPREADSHEET_FEED_URL,
+                SpreadsheetFeed.class);
+        List<SpreadsheetEntry> spreadsheets = feed.getEntries();
+
+        if (spreadsheets.size() == 0) {
+            // TODO: There were no spreadsheets, act accordingly.
+        }
+
+        SpreadsheetEntry spreadsheet = spreadsheets.get(0);
+        System.out.println("Spreadsheet name:" + spreadsheet.getTitle().getPlainText());
+
+        WorksheetFeed worksheetFeed = service.getFeed(
+                spreadsheet.getWorksheetFeedUrl(), WorksheetFeed.class);
+        List<WorksheetEntry> worksheets = worksheetFeed.getEntries();
+
+        for (WorksheetEntry worksheet: worksheets) {
+            System.out.println("State: " + worksheet.getTitle().getPlainText());
+
+            // Fetch the list feed of the worksheet.
+            URL listFeedUrl = worksheet.getListFeedUrl();
+            ListFeed listFeed = service.getFeed(listFeedUrl, ListFeed.class);
+
+            // Iterate through each row, printing its cell values.
+            for (ListEntry row : listFeed.getEntries()) {
+                saveToDB(worksheet.getTitle().getPlainText(), row);
+            }
+        }
+    }
+
+    public static void saveToDB (String state, ListEntry row) {
+        String englishName = row.getCustomElements().getValue("englishname");
+        Logger.info("Copying restaurant: " + row.getCustomElements().getValue("chinesename"));
+
+        Restaurant restaurant = Restaurant.findByName(englishName);
+        if (restaurant == null) {
+            restaurant = new Restaurant();
+        }
+
+        restaurant.englishName = englishName;
+        restaurant.foreignName = row.getCustomElements().getValue("chinesename");
+        restaurant.category = "Chinese";
+        restaurant.state = state;
+        restaurant.city = row.getCustomElements().getValue("city");
+        restaurant.address = row.getCustomElements().getValue("address");
+        restaurant.telephone = row.getCustomElements().getValue("phonenumber");
+        restaurant.createdTimestamp = new Date();
+        Ebean.beginTransaction();
+        Ebean.save(restaurant);
+        Ebean.commitTransaction();
+        Ebean.endTransaction();
     }
 }

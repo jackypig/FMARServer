@@ -15,7 +15,8 @@ import java.util.List;
  */
 @Entity
 @Table(
-        name="restaurant"
+        name="restaurant",
+        uniqueConstraints=@UniqueConstraint(columnNames={"english_name"})
 )
 public class Restaurant extends Model implements Comparable<Restaurant> {
 
@@ -56,7 +57,7 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
     }
 
     public static Restaurant findByName(String name) {
-        return finder.where().eq("name", name).findUnique();
+        return finder.where().eq("english_name", name).findUnique();
     }
 
     public static List<Restaurant> findAll() {
