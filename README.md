@@ -20,5 +20,8 @@ Read about configuration here:
 And also here:
     http://www.playframework.org/documentation/2.0/ProductionConfiguration
 
+To start mysql locally, go to your mysql directory and type the following:
+    ./mysqld --console
+
 
 
