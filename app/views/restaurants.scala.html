@@ -118,6 +118,7 @@
             <th align="left">City</th>
             <th align="left">Address</th>
             <th align="left">Phone Number</th>
+            <th align="left">Created By</th>
         </tr>
         </thead>
         @for(restaurant <- restaurants) {
@@ -129,6 +130,7 @@
             <td align="left">@restaurant.city</td>
             <td align="left">@restaurant.address</td>
             <td align="left">@restaurant.telephone</td>
+            <td align="left">@restaurant.createdBy.email</td>
             <td align="center" nowrap>
                 <button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
                 <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->

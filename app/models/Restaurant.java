@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -44,7 +45,11 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
     @Basic(optional=false)
     public String telephone;
 
+    @ManyToOne(optional=true)
+    public User createdBy;
+
     @Basic(optional=true) @Temporal(TemporalType.TIMESTAMP)
+    @CreatedTimestamp
     public Date createdTimestamp;
 
     public static Model.Finder<Long, Restaurant> finder = new Model.Finder(
