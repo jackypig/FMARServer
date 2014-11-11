@@ -23,5 +23,6 @@ And also here:
 To start mysql locally, go to your mysql directory and type the following:
     ./mysqld --console
 
-
+If accidentally deleted .ssh file such that you can't login to ec2 instance, refer to the steps in the following link:
+    https://forums.aws.amazon.com/thread.jspa?threadID=83069
 
