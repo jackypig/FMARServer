@@ -26,3 +26,5 @@ To start mysql locally, go to your mysql directory and type the following:
 If accidentally deleted .ssh file such that you can't login to ec2 instance, refer to the steps in the following link:
     https://forums.aws.amazon.com/thread.jspa?threadID=83069
 
+If javac is not found in your environment, do the following:
+    sudo yum install java-devel
