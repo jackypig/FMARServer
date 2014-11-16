@@ -21,7 +21,7 @@
     //                if (status.adminType === "SUPER_USER") {
     //                    window.location = "/publisherManager/list";
     //                } else {
-                        window.location = "/restaurantList";
+                        window.location = "/restaurantManager/list";
     //                }
 
                 });
@@ -61,8 +61,8 @@
             LoginPage.initialize();
         });
     </script>
-    <div id="content">
-        <table border="0" width="50%">
+    @widgets.dialogInline("Welcome!", 400) {
+        <table border="0" width="400" style="margin-left:auto; margin-right: auto" class="ui-widget">
             <tr>
                 <td align="left">Email:</td>
                 <td><input type="email" name="email" id="email" /></td>
@@ -72,11 +72,12 @@
                 <td><input type="password" name="password" id="password" /> </td>
             </tr>
             <tr>
-                <td colspan="2" align="right"><button id="loginButton" type="button" class="jqButton">Login</button></td>
-            </tr>
-            <tr>
-                <td><button style="width: 300px;font-weight: bold" type="button" onclick="javascript:window.location='/register'" class="jqButton">Register</button></td>
+                <td colspan="2" align="middle" style="padding-top: 20px">
+                    <button style="width: 100px; font-weight: bold" id="loginButton" type="button" class="jqButton">Login</button>
+                    <button style="width: 100px; font-weight: bold" type="button" onclick="javascript:window.location='/register'" class="jqButton">Register</button>
+                    <button style="width: 100px; font-weight: bold" type="button" onclick="javascript:window.location='/bootstrap'" class="jqButton">Bootstrap</button>
+                </td>
             </tr>
         </table>
-    </div>
+    }
 }

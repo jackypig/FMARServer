@@ -40,8 +40,7 @@
             /*     background-color: #b0c4de;  */
             padding: 20px 10px;
         }
-        #sidebar{float:left; width:165px;}
-        #content {width:1000px; margin-left:190px;}
+        #content {width:1000px; margin-left:50px; margin-right:50px;}
         .contact {text-align: center;}
         h1 {font-size:4em; padding:0px 0 0 0; margin:0;}
         h2 {font-size:2.4em; margin:0 0 0px 0;}
@@ -49,15 +48,6 @@
         p.slogan {font-size:1.4em;padding:5px 0 15px 40px;font-style: italic}
         div.contact{text-align:center;}
         #footer {width:680px; clear:both; margin:0px 0 0px 0px; color:#000000; font-size:1em;}
-
-        /* Align Period with Experience Title */
-        .ExperienceTitle{
-            float:left;
-            font-weight:bold;
-        }
-        li.ProfessionExp{
-            clear:both;
-        }
 
     </style>
 </head>
@@ -74,19 +64,6 @@
         <p class="slogan">
             No need to worry about running out things to eat, we will find one for you!
         </p>
-    </div>
-    <div id="sidebar">
-        <table border="0">
-            <tr><td><a class="ui-button" href="/">Home</a></td></tr>
-            <tr><td><a class="ui-button" href="/restaurantManager/list">Restaurants</a></td></tr>
-            <tr><td><a class="ui-button" href="/register">Register</a></td></tr>
-            <tr><td><a class="ui-button" href="/admin">Admin</a></td></tr>
-            <tr><td><a class="ui-button" href="/loginPage">Login</a></td></tr>
-            <tr><td><a class="ui-button" href="/restaurantManager/new">New Restaurant</a></td></tr>
-            <tr><td><a href="http://www.linkedin.com/pub/ling-hung/50/140/a8a"><img src="@routes.Assets.at("images/linkedin_group_button.jpg")" alt="Join our group on LinkedIn" width="160" height="33" vspace="0" border="0" /></a></td></tr>
-            <tr><td><a href="http://www.twitter.com/eceumd"><img src="@routes.Assets.at("images/twitter_follow_us.png")" alt="Follow us on Twitter" border="0" vspace="0" /></a></td></tr>
-            <tr><td><a href="https://www.facebook.com/ling.hung.313"><img src="@routes.Assets.at("images/facebook_find_us.jpg")" alt="Follow us on Facebook" width="160" height="47" vspace="0" border="0" /></a></td></tr>
-        </table>
     </div>
     @content
     <div id="footer">

@@ -20,4 +20,8 @@ public class Application extends FmarController {
     public static Result admin() {
         return ok(admin.render());
     }
+
+    public static Result testBootstrap() {
+        return ok(testBootstrap.render());
+    }
 }
