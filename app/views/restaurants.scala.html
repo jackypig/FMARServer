@@ -18,23 +18,21 @@
 <script type="text/javascript" >
     var RestaurantList = {
         initialize: function () {
-//            tableOptions = {
-//                "aaSorting" : [[0, "asc"]],
-//                "bFilter": true,
-//                "bInfo": false,
-//                "bLengthChange": false,
-//                "bJQueryUI": false,
-//                "bPaginate": false,
-//                "iDisplayLength": 100,
-//                "oLanguage": {"sEmptyTable": " "},
-//                "sPaginationType": "full_numbers"
-//            };
-//
-//            setTimeout(function() {
-//                $( "#restaurants" ).dataTable(tableOptions)
-//            }, 20);
+            tableOptions = {
+                "bFilter": true,
+                "bInfo": false,
+                "bLengthChange": false,
+                "bJQueryUI": false,
+                "bPaginate": true,
+                "iDisplayLength": 20,
+                "oLanguage": {"sEmptyTable": " "},
+                "sPaginationType": "full_numbers"
+            };
 
-//            $( ".buttonLink" ).button();
+
+            $( "#restaurants" ).dataTable(tableOptions);
+
+            $( ".buttonLink" ).button();
         },
 
         newRestaurantClicked: function () {
@@ -107,45 +105,44 @@
     })
 </script>
 
-<div id="content">
-    <table id="restaurants" border="0" cellspacing="0" cellpadding="0"  width="100%" style="">
-        <thead>
-        <tr>
-            <th align="left">English Name</th>
-            <th align="left">Foreign Name</th>
-            <th align="left">Category</th>
-            <th align="left">State</th>
-            <th align="left">City</th>
-            <th align="left">Address</th>
-            <th align="left">Phone Number</th>
-            <th align="left">Created By</th>
-        </tr>
-        </thead>
-        @for(restaurant <- restaurants) {
-        <tr>
-            <td align="left">@restaurant.englishName</td>
-            <td align="left">@restaurant.foreignName</td>
-            <td align="left">@restaurant.category</td>
-            <td align="left">@restaurant.state</td>
-            <td align="left">@restaurant.city</td>
-            <td align="left">@restaurant.address</td>
-            <td align="left">@restaurant.telephone</td>
-            <td align="left">@restaurant.createdBy.email</td>
-            <td align="center" nowrap>
-                <button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
-                <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->
-                <button onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
-                <!--<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;-->
-            </td>
-        </tr>
-        }
-        <tr>
-            <td align="left">
-                <!--<button onclick="javascript:RestaurantList.syncClicked()">Sync</button>&nbsp;-->
-                <button onclick="javascript:RestaurantList.newRestaurantClicked()">I know a restaurant you don't have!</button>&nbsp;
-            </td>
-        </tr>
-    </table>
-    <br>
+<div class="row">
+    <div>
+        <table id="restaurants">
+            <thead>
+            <tr>
+                <th align="left">English Name</th>
+                <th align="left">Foreign Name</th>
+                <th align="left">Category</th>
+                <th align="left">State</th>
+                <th align="left">City</th>
+                <th align="left">Address</th>
+                <th align="left">Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+                @for(restaurant <- restaurants) {
+                <tr>
+                    <td align="left">@restaurant.englishName</td>
+                    <td align="left">@restaurant.foreignName</td>
+                    <td align="left">@restaurant.category</td>
+                    <td align="left">@restaurant.state</td>
+                    <td align="left">@restaurant.city</td>
+                    <td align="left">@restaurant.address</td>
+                    <td align="left">@restaurant.telephone</td>
+                    <!--<td align="center" nowrap>-->
+                        <!--<button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;-->
+                        <!--&lt;!&ndash;<a href="" class="buttonLink">Edit</a>&nbsp;&ndash;&gt;-->
+                        <!--<button onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;-->
+                        <!--&lt;!&ndash;<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;&ndash;&gt;-->
+                    <!--</td>-->
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row" style="padding-top: 20px">
+    <p>Do we miss a restaurant? Please let us know by clicking the following button:</p>
+    <button onclick="javascript:RestaurantList.newRestaurantClicked()">I want to contribute!</button>
 </div>
 }

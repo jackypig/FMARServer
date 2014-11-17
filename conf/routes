@@ -6,7 +6,6 @@
 GET     /                           controllers.Application.loginPage()
 GET     /admin                      controllers.Application.admin()
 GET     /register                   controllers.Application.register()
-GET     /bootstrap                  controllers.Application.testBootstrap()
 
 # User
 GET     /userManager/authenticate   controllers.UserManager.authenticate(email, password)
