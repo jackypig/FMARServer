@@ -9,8 +9,8 @@ public class Application extends FmarController {
         return ok(index.render("Your new application is ready."));
     }
 
-    public static Result loginPage () {
-        return ok(login.render());
+    public static Result homePage () {
+        return ok(home.render());
     }
 
     public static Result register () {

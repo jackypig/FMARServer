@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.loginPage()
+GET     /                           controllers.Application.homePage()
 GET     /admin                      controllers.Application.admin()
 GET     /register                   controllers.Application.register()
 

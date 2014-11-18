@@ -35,6 +35,69 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+        var SignInPage = {
+            initialize: function () {
+                $( "#SignInButton" ).click(SignInPage.authenticate);
+                $( "#resetButton" ).button();
+
+                //Handle the user hitting enter
+                $( " input " ).keypress(function(e) {
+                    if(e.which == 13) {
+                        SignInPage.authenticate();
+                    }
+                });
+            },
+
+            authenticate: function () {
+                var email = $( "#email" ).val();
+                var password = $( "#password" ).val();
+
+                UserService.authenticate( email, password, function (status) {
+                    //                if (status.adminType === "SUPER_USER") {
+                    //                    window.location = "/publisherManager/list";
+                    //                } else {
+                    window.location = "/restaurantManager/list";
+                    //                }
+
+                });
+            },
+
+            resetPassword: function () {
+                var email = $( "#resetEmailAddress" ).val();
+                if (email === "") {
+                    Alert.show("Email Blank", "An email address must be entered.");
+                    return;
+                }
+                $( "#forgotPasswordDialog" ).dialog( "close" );
+                AdminService.emailPasswordReset(email, function () {
+                    Alert.show("Resetting Password", "You will receive an email with a link to reset your password.");
+                });
+            },
+
+            showForgotPassword: function () {
+                $( "#forgotPasswordDialog").dialog({
+                    height: "auto",
+                    modal: true,
+                    open: function(event, ui) {
+                        $(".ui-dialog-titlebar-close", this.parentNode).hide();
+                    },
+                    position: {my: "center top+100", at: "center top", of: window},
+                    title: "Reset Password",
+                    width: 450
+                });
+            },
+
+            publisherCreationPage: function () {
+                window.location="/adminManager/register";
+            }
+        }
+
+        $(function () {
+            SignInPage.initialize();
+        });
+    </script>
 </head>
 
 <body>
@@ -47,18 +110,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="/">MDChiShenMe</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right" role="form">
+            <div class="navbar-form navbar-right">
                 <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
+                    <input type="text" placeholder="Email" id="email" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" placeholder="Password" id="password" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
+                <button type="button" class="btn btn-success" id="SignInButton">Sign in</button>
+                <button type="button" class="btn btn-success" onclick="javascript:window.location='/register'">Register</button>
+            </div>
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
@@ -67,7 +131,7 @@
     <div class="container">
         <h1>Welcome to MDChiShenMe!</h1>
         <p>This is a place where you can check for what to eat and get recommendation about what to eat. You can register your email to get a daily email for what to eat everyday. You can also provide a restaurant if we don't have by logging in with your email. </p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>-->
     </div>
 </div>
 <div class="container">
