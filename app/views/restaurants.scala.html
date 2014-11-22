@@ -2,36 +2,15 @@
 
 @main("Restaurant List") {
 <style type="text/css" title="currentStyle">
-    @@import '@routes.Assets.at("lib/datatables-1.9.4/media/css/jquery.dataTables.css")';
-    .dataTables_filter {
-        display: none;
-    }
-
-    .dataTables_wrapper {
-        margin-left: auto;
-        margin-right: auto;
-    }
+    @@import '@routes.Assets.at("lib/Datatables-1.10.4/media/css/jquery.dataTables.min.css")';
 </style>
 
-<script type="text/javascript" language="javascript" src='@routes.Assets.at("lib/datatables-1.9.4/jquery.dataTables.js")'></script>
+<script type="text/javascript" language="javascript" src='@routes.Assets.at("lib/Datatables-1.10.4/media/js/jquery.dataTables.min.js")'></script>
 
 <script type="text/javascript" >
     var RestaurantList = {
         initialize: function () {
-            tableOptions = {
-                "bFilter": true,
-                "bInfo": false,
-                "bLengthChange": false,
-                "bJQueryUI": false,
-                "bPaginate": true,
-                "iDisplayLength": 20,
-                "oLanguage": {"sEmptyTable": " "},
-                "sPaginationType": "full_numbers"
-            };
-
-
-            $( "#restaurants" ).dataTable(tableOptions);
-
+            var table = $( "#restaurants" ).DataTable();
             $( ".buttonLink" ).button();
         },
 
@@ -117,6 +96,7 @@
                 <th align="left">City</th>
                 <th align="left">Address</th>
                 <th align="left">Phone Number</th>
+                <th align="left">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -129,12 +109,12 @@
                     <td align="left">@restaurant.city</td>
                     <td align="left">@restaurant.address</td>
                     <td align="left">@restaurant.telephone</td>
-                    <!--<td align="center" nowrap>-->
-                        <!--<button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;-->
-                        <!--&lt;!&ndash;<a href="" class="buttonLink">Edit</a>&nbsp;&ndash;&gt;-->
-                        <!--<button onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;-->
-                        <!--&lt;!&ndash;<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;&ndash;&gt;-->
-                    <!--</td>-->
+                    <td align="center" nowrap>
+                        <button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
+                        <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->
+                        <button onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
+                        <!--<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;-->
+                    </td>
                 </tr>
                 }
             </tbody>

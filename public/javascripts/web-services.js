@@ -3,6 +3,7 @@
  */
 var UserService = {
     authenticate: function(email, password, callback) {
+        alert(email);
         var url = "/userManager/authenticate?email=" + email + "&password=" + password;
 
 //        BusyDialog.show("Authenticating");
