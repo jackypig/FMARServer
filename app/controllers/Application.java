@@ -5,10 +5,6 @@ import views.html.*;
 
 public class Application extends FmarController {
 
-    public static Result index() {
-        return ok(index.render("Your new application is ready."));
-    }
-
     public static Result homePage () {
         return ok(home.render());
     }
