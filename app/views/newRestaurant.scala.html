@@ -1,6 +1,13 @@
 @(restaurant: Restaurant)
 
-@main("New Restaurant") {
+@main("New Restaurant", "Thank you for your contribution!",
+        "We're glad that you want to share the restaurant that we don't have. Just fill in the following form then click submit, and we will refresh our database after verification. We greatly appreciate your participation!",
+        "newRestaurant") {
+<style type="text/css" title="currentStyle">
+    .formRow {
+        padding: 5px 0px;
+    }
+</style>
 <script type="text/javascript">
     var NewRestaurant = {
         initialize: function () {
@@ -20,71 +27,80 @@
         NewRestaurant.initialize();
     });
 </script>
-<div id="content">
-    <form id="restaurantForm" method="POST" action="/restaurantManager/save">
-        <input type="hidden" name="restaurantId" value="@restaurant.id">
-        <table width="100%" border="0">
-            <tr>
-                <td align="right">English Name</td>
-                <td align="left">
-                    <input type="text" name="englishName" size="30" value="@restaurant.englishName">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">Foreign Name</td>
-                <td>
-                    <input type="text" name="foreignName" value="@restaurant.foreignName">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">Category</td>
-                <td>
-                    <select name="category" value="@restaurant.category">
-                        <option value="American" @if(restaurant.category == "American") {selected}>American</option>
-                        <option value="Chinese" @if(restaurant.category == "Chinese") {selected}>Chinese</option>
-                        <option value="Indian" @if(restaurant.category == "Indian") {selected}>Indian</option>
-                        <option value="Mexican" @if(restaurant.category == "Mexican") {selected}>Mexican</option>
-                        <option value="Korean" @if(restaurant.category == "Korean") {selected}>Korean</option>
-                        <option value="Japanese" @if(restaurant.category == "Japanese") {selected}>Japanese</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">State</td>
-                <td>
-                    <select name="state">
-                        <option value="DC" @if(restaurant.state == "DC") {selected}>DC</option>
-                        <option value="MD" @if(restaurant.state == "MD") {selected}>MD</option>
-                        <option value="VA" @if(restaurant.state == "VA") {selected}>VA</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">City</td>
-                <td>
-                    <input type="text" name="city" value="@restaurant.city">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">Address</td>
-                <td align="left">
-                    <input type="text" name="address" size="50" value="@restaurant.address">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">Phone Number</td>
-                <td align="left">
-                    <input type="tel" name="telephone" value="@restaurant.telephone">
-                </td>
-            </tr>
-            <tr>
-                <td align="right"></td>
-                <td align="center">
-                    <button type="button" onclick="javascript:NewRestaurant.onBackClicked()">Back</button>&nbsp;
-                    <input type="submit">
-                </td>
-            </tr>
-        </table>
-    </form>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @if(restaurant.id == null) {
+            <h3 class="panel-title">New Restaurant</h3>
+        }else {
+            <h3 class="panel-title">@restaurant.englishName</h3>
+        }
+    </div>
+    <div class="panel-body">
+        <form id="restaurantForm" method="POST" action="/restaurantManager/save">
+            <input type="hidden" name="restaurantId" value="@restaurant.id">
+            <table width="100%" border="0">
+                <tr>
+                    <td align="left">English Name</td>
+                    <td align="left" class="formRow">
+                        <input type="text" name="englishName" size="30" value="@restaurant.englishName">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Foreign Name</td>
+                    <td class="formRow">
+                        <input type="text" name="foreignName" value="@restaurant.foreignName">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Category</td>
+                    <td class="formRow">
+                        <select name="category" value="@restaurant.category">
+                            <option value="American" @if(restaurant.category == "American") {selected}>American</option>
+                            <option value="Chinese" @if(restaurant.category == "Chinese") {selected}>Chinese</option>
+                            <option value="Indian" @if(restaurant.category == "Indian") {selected}>Indian</option>
+                            <option value="Mexican" @if(restaurant.category == "Mexican") {selected}>Mexican</option>
+                            <option value="Korean" @if(restaurant.category == "Korean") {selected}>Korean</option>
+                            <option value="Japanese" @if(restaurant.category == "Japanese") {selected}>Japanese</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">State</td>
+                    <td class="formRow">
+                        <select name="state">
+                            <option value="DC" @if(restaurant.state == "DC") {selected}>DC</option>
+                            <option value="MD" @if(restaurant.state == "MD") {selected}>MD</option>
+                            <option value="VA" @if(restaurant.state == "VA") {selected}>VA</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">City</td>
+                    <td class="formRow">
+                        <input type="text" name="city" value="@restaurant.city">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Address</td>
+                    <td align="left" class="formRow">
+                        <input type="text" name="address" size="50" value="@restaurant.address">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Phone Number</td>
+                    <td align="left" class="formRow">
+                        <input type="tel" name="telephone" value="@restaurant.telephone">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="right" class="formRow">
+                        <button type="button" class="btn btn-primary" onclick="javascript:NewRestaurant.onBackClicked()">Back</button>&nbsp;
+                        <input type="submit" class="btn btn-primary">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>
 }

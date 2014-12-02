@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, headLine: String, subHeadLine: String, activePage: String = "null")(content: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +32,7 @@
     <!-- Bootstrap core JavaScript
 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src='@routes.Assets.at("javascripts/jquery-1.11.1.min.js")'></script>
     <script src='@routes.Assets.at("lib/bootstrap/bootstrap.min.js")'></script>
     <script src='@routes.Assets.at("javascripts/docs.min.js")'></script>
     <script type="text/javascript" src='@routes.Assets.at("javascripts/web-services.js")' ></script>
@@ -124,9 +124,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/restaurantManager/list">Restaurants</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li @if(activePage == "home"){class="active"}><a href="/">Home</a></li>
+                <li @if(activePage == "restaurants" || activePage == "newRestaurant"){class="active"}><a href="/restaurantManager/list">Restaurants</a></li>
+                <li @if(activePage == "contact"){class="active"}><a href="/contact">Contact</a></li>
             </ul>
             <div class="navbar-form navbar-right" role="form">
                 <div class="form-group">
@@ -149,8 +149,8 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>Welcome to MDChiShenMe!</h1>
-        <p>A place where you stay updated on the Chinese restaurants information in Maryland.</p>
+        <h1>@headLine</h1>
+        <p>@subHeadLine</p>
     </div>
 </div>
 

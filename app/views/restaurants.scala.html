@@ -1,6 +1,6 @@
 @(restaurants: List[Restaurant])
 
-@main("Restaurant List") {
+@main("Restaurant List", "Find a restaurant!", "Here you can browse all the restaurants and find the ones close to you.", "restaurants") {
 <style type="text/css" title="currentStyle">
     @@import '@routes.Assets.at("lib/Datatables-1.10.4/media/css/jquery.dataTables.min.css")';
 </style>
@@ -110,9 +110,9 @@
                     <td align="left">@restaurant.address</td>
                     <td align="left">@restaurant.telephone</td>
                     <td align="center" nowrap>
-                        <button onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
+                        <button class="btn btn-primary" onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
                         <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->
-                        <button onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
+                        <button class="btn btn-danger" onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
                         <!--<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;-->
                     </td>
                 </tr>
@@ -123,6 +123,6 @@
 </div>
 <div class="row" style="padding-top: 20px">
     <p>Do we miss a restaurant? Please let us know by clicking the following button:</p>
-    <button onclick="javascript:RestaurantList.newRestaurantClicked()">I want to contribute!</button>
+    <button class="btn btn-info" onclick="javascript:RestaurantList.newRestaurantClicked()">I want to contribute!</button>
 </div>
 }
