@@ -16,4 +16,13 @@ public class Application extends FmarController {
     public static Result admin() {
         return ok(admin.render());
     }
+
+    public static Result login() {
+        return ok(login.render());
+    }
+
+    public static Result logout () {
+        SessionManager.clear();
+        return homePage();
+    }
 }

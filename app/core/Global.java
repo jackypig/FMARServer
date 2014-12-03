@@ -35,6 +35,10 @@ public class Global extends GlobalSettings{
         return "jackypig0906@gmail.com";
     }
 
+    public static boolean isDebugEnabled () {
+        return false;
+    }
+
     public static AuthenticateService getAuthenticationService () {
         return new AuthenticateService();
     }

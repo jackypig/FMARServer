@@ -1,4 +1,4 @@
-@main("Contact", "Let us know your opinions!",
+@main("Feedback", "Let us know your opinions!",
 "It is our pleasure to have your opinions about this website. We treat your responses very seriously because your any suggestions and comments will make this website grow and benefit more and more people. Simply leave your message in the following form and send to us, and then we'll improve!", "contact") {
 <style type="text/css" title="currentStyle">
     .formRow {
@@ -6,10 +6,10 @@
     }
 </style>
 <script type="text/javascript">
-    var Contact = {
+    var Feedback = {
         initialize: function () {
             $("#saveButton").button();
-            $("#saveButton").click(Contact.onSaveClick);
+            $("#saveButton").click(Feedback.onSaveClicked);
         },
 
         onSaveClicked: function () {
@@ -17,7 +17,7 @@
         }
     }
     $(function () {
-        Contact.initialize();
+        Feedback.initialize();
     });
 </script>
 <div class="panel panel-info">
@@ -25,7 +25,7 @@
         <h3 class="panel-title">Message</h3>
     </div>
     <div class="panel-body">
-        <form id="contactForm" method="POST" action="/contact/submit">
+        <form id="contactForm" method="POST" action="/feedback/submit">
             <table width="100%" border="0">
                 <tr>
                     <td align="left">Your Email</td>

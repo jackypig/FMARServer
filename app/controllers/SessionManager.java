@@ -52,59 +52,59 @@ public class SessionManager {
         return session;
     }
 
-//    public static Admin getAdmin () {
-//        AdminSession session = getAdminSession();
-//        if (session == null) {
-//            return null;
-//        }
-//        return session.admin;
-//    }
+    public static User getUser () {
+        LoginSession session = getAdminSession();
+        if (session == null) {
+            return null;
+        }
+        return session.user;
+    }
 //
-//    public static AdminSession getAdminSession () {
-//        return getAdminSession(null);
-//    }
-//
-//    /**
-//     * We allow the session to be passed in because sometimes this is called from the hook in Action.Simple
-//     * At the time Action.Simple calls back, it has not yet set the session on the Controller, so we need to pass it
-//     * rather than calling Controller.session()
-//     * @param context
-//     * @return
-//     */
-//    public static AdminSession getAdminSession (Http.Context context) {
-//        Http.Session session = null;
-//        Http.Request request = null;
-//
-//        if (context == null) {
-//            session = Controller.session();
-//            request = Controller.request();
-//        } else {
-//            session = context.session();
-//            request = context.request();
-//        }
-//
-//        //Get the admin session from a ThreadLocal if possible to avoid constant lookups
-//        if (requestMap(request).get(KEY_ADMIN_SESSION_ID) != null) {
-//            return (AdminSession) requestMap(request).get(KEY_ADMIN_SESSION_ID);
-//        }
-//
-//        String sessionUuid = session.get(KEY_ADMIN_SESSION_ID);
-//        if (sessionUuid == null) {
-//            if (Global.isDebugEnabled()) {
-//                Admin admin = Admin.findById(1L);
-//                AdminSession adminSession = create(admin);
-//                sessionUuid = adminSession.sessionUuid;
-//            } else {
-//                Logger.trace("SessionManager NoSessionId!");
-//                return null;
-//            }
-//        }
-//
-//        AdminSession adminSession = AdminSession.findByUuid(sessionUuid);
-//        //Set the admin session in the threadlocal to avoid future lookups
-//        requestMap(request).put(KEY_ADMIN_SESSION_ID, adminSession);
-//        return adminSession;
-//    }
+    public static LoginSession getAdminSession () {
+        return getLoginSession(null);
+    }
+
+    /**
+     * We allow the session to be passed in because sometimes this is called from the hook in Action.Simple
+     * At the time Action.Simple calls back, it has not yet set the session on the Controller, so we need to pass it
+     * rather than calling Controller.session()
+     * @param context
+     * @return
+     */
+    public static LoginSession getLoginSession (Http.Context context) {
+        Http.Session session = null;
+        Http.Request request = null;
+
+        if (context == null) {
+            session = Controller.session();
+            request = Controller.request();
+        } else {
+            session = context.session();
+            request = context.request();
+        }
+
+        //Get the login session from a ThreadLocal if possible to avoid constant lookups
+        if (requestMap(request).get(KEY_USER_SESSION_ID) != null) {
+            return (LoginSession) requestMap(request).get(KEY_USER_SESSION_ID);
+        }
+
+        String sessionUuid = session.get(KEY_USER_SESSION_ID);
+        if (sessionUuid == null) {
+            if (Global.isDebugEnabled()) {
+                User user = User.findById(1L);
+                LoginSession loginSession = create(user);
+                sessionUuid = loginSession.sessionUuid;
+            } else {
+                Logger.trace("SessionManager NoSessionId!");
+                return null;
+            }
+        }
+
+        LoginSession loginSession = LoginSession.findByUuid(sessionUuid);
+        //Set the login session in the ThreadLocal to avoid future lookups
+        requestMap(request).put(KEY_USER_SESSION_ID, loginSession);
+        return loginSession;
+    }
 //
 //    public static List<Publisher> allPublishers () {
 //        List<Publisher> publishers = Publisher.findAll();
@@ -237,9 +237,9 @@ public class SessionManager {
 //        return false;
 //    }
 //
-//    public static boolean isSuperUser () {
-//        return getAdmin() != null && getAdmin().isSuperuser();
-//    }
+    public static boolean isSuperUser () {
+        return getUser() != null && getUser().isSuperuser();
+    }
 //
 //    public static boolean isXappUser () {
 //        return getAdmin() != null && getAdmin().isXappUser();

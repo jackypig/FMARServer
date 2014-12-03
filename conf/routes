@@ -6,10 +6,13 @@
 GET     /                           controllers.Application.homePage()
 GET     /admin                      controllers.Application.admin()
 GET     /register                   controllers.Application.register()
+GET     /login                      controllers.Application.login()
+GET     /logout                     controllers.Application.logout()
 
 # User
-GET     /userManager/authenticate   controllers.UserManager.authenticate(email, password)
-POST    /userManager/saveUser       controllers.UserManager.saveUser()
+GET     /userManager/signInAuthenticate         controllers.UserManager.signInAuthenticate(email: String, password: String)
+GET     /userManager/stayUpdatedAuthenticate    controllers.UserManager.stayUpdatedAuthenticate(email: String)
+POST    /userManager/saveUser                   controllers.UserManager.saveUser()
 
 # Restaurant
 GET     /restaurantManager/new      controllers.RestaurantManager.newRestaurant()
@@ -20,8 +23,8 @@ GET     /restaurantManager/sync     controllers.RestaurantManager.syncFromGoogle
 POST    /restaurantManager/save     controllers.RestaurantManager.saveRestaurant()
 
 # Contact
-GET     /contact                    controllers.ContactManager.contactPage()
-POST    /contact/submit             controllers.ContactManager.submit()
+GET     /feedback                    controllers.FeedbackManager.feedbackPage()
+POST    /feedback/submit             controllers.FeedbackManager.submit()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -1,7 +1,7 @@
 package controllers;
 
 import play.mvc.Result;
-import views.html.contact;
+import views.html.feedback;
 
 /**
  * User: Ling Hung
@@ -10,12 +10,12 @@ import views.html.contact;
  * Date: 12/2/14
  * Time: 10:41 AM
  */
-public class ContactManager extends FmarController {
-    public static Result contactPage() {
-        return ok(contact.render());
+public class FeedbackManager extends FmarController {
+    public static Result feedbackPage() {
+        return ok(feedback.render());
     }
 
     public static Result submit() {
-        return ok(contact.render());
+        return ok(feedback.render());
     }
 }

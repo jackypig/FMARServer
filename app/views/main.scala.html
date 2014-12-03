@@ -1,4 +1,4 @@
-@(title: String, headLine: String, subHeadLine: String, activePage: String = "null")(content: Html)
+@(title: String, headLine: String = null, subHeadLine: String = null, activePage: String = "null")(content: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
     <!-- Custom styles for this template -->
     <style type="text/css">
         body {
-            padding-top: 50px;
+            padding-top: 20px;
             padding-bottom: 20px;
         }
     </style>
@@ -56,13 +56,12 @@
                 var email = $( "#email" ).val();
                 var password = $( "#password" ).val();
 
-            UserService.authenticate( email, password, function (status) {
+            UserService.stayUpdatedAuthenticate( email, function (status) {
                 if (status.success) {
 //                    alert("Registered Succeeded!");
                 } else {
 //                    alert("Registration Failed!");
                 }
-
             });
 
 //                $("#alertOKDialog").show();
@@ -72,6 +71,12 @@
 //                    });
 //                }, 2000);
 //                $("#alertOKDialog").show();
+            },
+
+            confirmLogout: function () {
+//                Confirm.show("Confirm Logout", "Click 'OK' to confirm logout.", function () {
+                    window.location = "/logout";
+//                });
             },
 
             resetPassword: function () {
@@ -126,10 +131,15 @@
             <ul class="nav navbar-nav">
                 <li @if(activePage == "home"){class="active"}><a href="/">Home</a></li>
                 <li @if(activePage == "restaurants" || activePage == "newRestaurant"){class="active"}><a href="/restaurantManager/list">Restaurants</a></li>
-                <li @if(activePage == "contact"){class="active"}><a href="/contact">Contact</a></li>
+                <li @if(activePage == "feedback"){class="active"}><a href="/feedback">Feedback</a></li>
             </ul>
             <div class="navbar-form navbar-right" role="form">
                 <div class="form-group">
+                    @if(SessionManager.getUser != null) {
+                        Hi, @SessionManager.getUser.email (<a href="javascript:SignInPage.confirmLogout()">Sign Out</a>)
+                    }else {
+                        <a href="/login">Sign In</a> or
+                    }
                     <input type="text" placeholder="Email" id="email" class="form-control">
                 </div>
                 <button type="button" id="SignInButton" class="btn btn-success" >Stay Updated</button>
@@ -149,8 +159,12 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>@headLine</h1>
-        <p>@subHeadLine</p>
+        @if(headLine != null) {
+            <h1>@headLine</h1>
+        }
+        @if(subHeadLine != null) {
+            <p>@subHeadLine</p>
+        }
     </div>
 </div>
 

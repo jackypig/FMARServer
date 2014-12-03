@@ -96,7 +96,9 @@
                 <th align="left">City</th>
                 <th align="left">Address</th>
                 <th align="left">Phone Number</th>
-                <th align="left">Actions</th>
+                @if(SessionManager.isSuperUser) {
+                    <th align="left">Actions</th>
+                }
             </tr>
             </thead>
             <tbody>
@@ -109,12 +111,14 @@
                     <td align="left">@restaurant.city</td>
                     <td align="left">@restaurant.address</td>
                     <td align="left">@restaurant.telephone</td>
-                    <td align="center" nowrap>
-                        <button class="btn btn-primary" onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
-                        <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->
-                        <button class="btn btn-danger" onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
-                        <!--<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;-->
-                    </td>
+                    @if(SessionManager.isSuperUser) {
+                        <td align="center" nowrap>
+                            <button class="btn btn-primary" onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
+                            <!--<a href="" class="buttonLink">Edit</a>&nbsp;-->
+                            <button class="btn btn-danger" onclick="javascript:RestaurantList.deleteClicked(@restaurant.id)">Delete</button>&nbsp;
+                            <!--<a href="javascript:RestaurantList.deleteClicked(@restaurant.id)" class="buttonLink">Delete</a>&nbsp;-->
+                        </td>
+                    }
                 </tr>
                 }
             </tbody>

@@ -16,7 +16,30 @@ import rest.RestReply;
  * Time: 10:56 PM
  */
 public class UserManager extends FmarController{
-    public static Result authenticate (String email, String password) {
+    public static Result signInAuthenticate (String email, String password) {
+        Logger.trace("Authenticating: " + email);
+//        boolean valid = Global.getAuthenticationService().authenticate(email, password);
+//        if (!valid) {
+//            return ok(RestController.error("INVALID_LOGIN", "Invalid email or password").toJson());
+//        }
+
+        User user = User.findByEmail(email);
+
+        RegistrationReply reply = new RegistrationReply();
+        if (user != null) {
+            reply.success = true;
+            SessionManager.create(user);
+        } else {
+            reply.success = false;
+        }
+//        Object payload = new RestReply(true) {
+//            public String loginType = user.loginType.toString();
+//        };
+//        return ok(Json.toJson(payload));
+        return ok(Json.toJson(reply));
+    }
+
+    public static Result stayUpdatedAuthenticate (String email) {
         Logger.trace("Authenticating: " + email);
 //        boolean valid = Global.getAuthenticationService().authenticate(email, password);
 //        if (!valid) {

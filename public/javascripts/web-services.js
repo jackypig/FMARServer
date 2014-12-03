@@ -2,9 +2,8 @@
  * Created by lh on 11/3/14.
  */
 var UserService = {
-    authenticate: function(email, password, callback) {
-        alert(email);
-        var url = "/userManager/authenticate?email=" + email + "&password=" + password;
+    signInAuthenticate: function(email, password, callback) {
+        var url = "/userManager/signInAuthenticate?email=" + email + "&password=" + password;
 
 //        BusyDialog.show("Authenticating");
         UserService.ajaxSetup();
@@ -16,6 +15,28 @@ var UserService = {
                 } else {
                     callback.call(this, status);
                 }
+//            });
+        }).error(function () {
+//            BusyDialog.hide();
+//            Alert.show("Invalid Login", "Unknown error. Please try again.");
+            alert("Unknown error. Please try again.");
+        });
+    },
+
+    stayUpdatedAuthenticate: function(email, callback) {
+//        alert(email);
+        var url = "/userManager/stayUpdatedAuthenticate?email=" + email;
+
+//        BusyDialog.show("Authenticating");
+        UserService.ajaxSetup();
+        $.getJSON(url, null, function (status) {
+//            BusyDialog.hide(function () {
+            if (!status.success) {
+//                    Alert.show("Invalid Login", "Invalid email or password. Please try again.");
+                alert("Invalid email, Please try again.");
+            } else {
+                callback.call(this, status);
+            }
 //            });
         }).error(function () {
 //            BusyDialog.hide();
