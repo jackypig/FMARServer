@@ -15,12 +15,13 @@ GET     /userManager/stayUpdatedAuthenticate    controllers.UserManager.stayUpda
 POST    /userManager/saveUser                   controllers.UserManager.saveUser()
 
 # Restaurant
-GET     /restaurantManager/new      controllers.RestaurantManager.newRestaurant()
-GET     /restaurantManager/list     controllers.RestaurantManager.restaurantList()
-GET     /restaurantManager/delete   controllers.RestaurantManager.deleteRestaurant(id: Long)
-GET     /restaurantManager/edit     controllers.RestaurantManager.editRestaurant(id: Long)
-GET     /restaurantManager/sync     controllers.RestaurantManager.syncFromGoogleSpreadsheet()
-POST    /restaurantManager/save     controllers.RestaurantManager.saveRestaurant()
+GET     /restaurantManager/new              controllers.RestaurantManager.newRestaurant()
+GET     /restaurantManager/list             controllers.RestaurantManager.restaurantList()
+GET     /restaurantManager/delete           controllers.RestaurantManager.deleteRestaurant(id: Long)
+GET     /restaurantManager/edit             controllers.RestaurantManager.editRestaurant(id: Long)
+GET     /restaurantManager/toggleApproval   controllers.RestaurantManager.toggleApproval(id: Long)
+GET     /restaurantManager/sync             controllers.RestaurantManager.syncFromGoogleSpreadsheet()
+POST    /restaurantManager/save             controllers.RestaurantManager.saveRestaurant()
 
 # Contact
 GET     /feedback                    controllers.FeedbackManager.feedbackPage()

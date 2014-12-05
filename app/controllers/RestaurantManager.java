@@ -9,6 +9,7 @@ import models.Restaurant;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Result;
+import rest.RestReply;
 import views.html.newRestaurant;
 
 import java.io.IOException;
@@ -36,11 +37,25 @@ public class RestaurantManager extends FmarController {
         return ok(newRestaurant.render(restaurant));
     }
 
+    public static Result toggleApproval(Long id) {
+        Restaurant restaurant = Restaurant.findById(id);
+        if (restaurant.approved) {
+            restaurant.approved = false;
+        } else {
+            restaurant.approved = true;
+        }
+
+        restaurant.save();
+        return RestController.ok(new RestReply(true));
+    }
+
     public static Result saveRestaurant() {
         Long restaurantId = formValueAsLong("restaurantId");
         Restaurant restaurant;
+        boolean newRestaurant = true;
         if (restaurantId != null) {
             restaurant = Restaurant.findById(restaurantId);
+            newRestaurant = false;
         } else {
             restaurant = new Restaurant();
         }
@@ -53,11 +68,16 @@ public class RestaurantManager extends FmarController {
         restaurant.address = formValue("address");
         restaurant.telephone = formValue("telephone");
         restaurant.createdTimestamp = new Date();
+        restaurant.approved = false;
         restaurant.save();
 
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
 //        sendNotifications(restaurants, 4);
+
+        if (newRestaurant) {
+            sendNewRestaurantNotifications(restaurant);
+        }
 
         return ok(views.html.restaurants.render(restaurants));
     }
@@ -88,6 +108,24 @@ public class RestaurantManager extends FmarController {
         body += "Thanks,<br>" +
                 "The FetchMeARestaurant Team";
         Global.getEmailService().send(fromEmail, "FetchMeARestaurant Admin", new String[] {email}, subject, body, body);
+    }
+
+    public static void sendNewRestaurantNotifications (Restaurant restaurant) {
+        String email = Global.getSystemEmail();
+        String fromEmail = Global.getSystemEmail();
+        String subject = "A new restaurant has been created";
+        String body = "The following are the details of the new created restaurant: <br><br>";
+
+        body += "English Name: " + restaurant.englishName + "<br>" +
+                "Foreign Name: " + restaurant.foreignName + "<br>" +
+                "Category: " + restaurant.category + "<br>" +
+                "State: " + restaurant.state + "<br>" +
+                "City: " + restaurant.city + "<br>" +
+                "Address: " + restaurant.address + "<br>" +
+                "Phone Number: " + restaurant.telephone + "<br><br>" +
+                "Thanks,<br>" +
+                "The MDChiShenMe Team";
+        Global.getEmailService().send(fromEmail, "MDChiShenMe Admin", new String[] {email}, subject, body, body);
     }
 
     public static Result deleteRestaurant(Long Id) {

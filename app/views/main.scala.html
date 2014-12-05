@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Ling Hung">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href='@routes.Assets.at("images/favicon.png")'>
 
     <title>@title</title>
 
@@ -154,6 +154,11 @@
 
 <div id="alertFailDialog" class="alert alert-danger" role="alert" style="display: none">
     <strong>Oh snap!</strong> We've already had your email, please check your inbox.
+</div>
+
+<div id="busyDialog" title="Just A Moment" style="display: none;text-align: center">
+    <img src='@routes.Assets.at("images/hourglass-purple.jpeg")' width='100' />
+    <div id="busyDialogText">Processing...</div>
 </div>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
