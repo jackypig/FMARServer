@@ -105,6 +105,7 @@
                 <th align="left">City</th>
                 <th align="left">Address</th>
                 <th align="left">Phone Number</th>
+                <th align="left">Special Offer</th>
                 @if(SessionManager.isSuperUser) {
                     <th align="left">Approved</th>
                     <th align="left">Actions</th>
@@ -122,6 +123,7 @@
                             <td align="left">@restaurant.city</td>
                             <td align="left">@restaurant.address</td>
                             <td align="left">@restaurant.telephone</td>
+                            <td align="left">@restaurant.specialOffer</td>
                             <td align="left">@restaurant.approved</td>
                             <td align="center" nowrap>
                                 <button class="btn btn-primary" onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
@@ -145,6 +147,7 @@
                                 <td align="left">@restaurant.city</td>
                                 <td align="left">@restaurant.address</td>
                                 <td align="left">@restaurant.telephone</td>
+                                <td align="left">@restaurant.specialOffer</td>
                             </tr>
                         }
                     }

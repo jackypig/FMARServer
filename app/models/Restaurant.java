@@ -48,6 +48,9 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
     @Basic(optional=false)
     public String telephone;
 
+    @Basic(optional=true)
+    public String specialOffer;
+
     @ManyToOne(optional=true)
     public User createdBy;
 

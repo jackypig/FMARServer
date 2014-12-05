@@ -21,8 +21,8 @@ import java.util.List;
 
 /**
  * User: Ling Hung
- * Comp: XappMedia, Inc.
- * Proj: xapp-server
+ * Comp: MDChiShenMe, Inc.
+ * Proj: Server
  * Date: 11/6/14
  * Time: 8:52 AM
  */
@@ -60,15 +60,17 @@ public class RestaurantManager extends FmarController {
             restaurant = new Restaurant();
         }
 
+        restaurant.address = formValue("address");
+        restaurant.approved = false;
+        restaurant.category = formValue("category");
+        restaurant.city = formValue("city");
+        restaurant.createdBy = SessionManager.getUser();
+        restaurant.createdTimestamp = new Date();
         restaurant.englishName = formValue("englishName");
         restaurant.foreignName = formValue("foreignName");
-        restaurant.category = formValue("category");
+        restaurant.specialOffer = formValue("specialOffer");
         restaurant.state = formValue("state");
-        restaurant.city = formValue("city");
-        restaurant.address = formValue("address");
         restaurant.telephone = formValue("telephone");
-        restaurant.createdTimestamp = new Date();
-        restaurant.approved = false;
         restaurant.save();
 
         List<Restaurant> restaurants = Restaurant.findAll();

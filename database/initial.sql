@@ -14,4 +14,5 @@ create table special_offer (
   foreign key (restaurant_id) references restaurant(id)
   );
 
-
+#12/05/2014 - local database
+alter table restaurant add special_offer varchar(255);
