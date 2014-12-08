@@ -1,5 +1,5 @@
 @main("Feedback", "Let us know your opinions!",
-"It is our pleasure to have your opinions about this website. We treat your responses very seriously because your any suggestions and comments will make this website grow and benefit more and more people. Simply leave your message in the following form and send to us, and then we'll improve!", "contact") {
+"It is our pleasure to have your opinions about this website. We treat your responses very seriously because your any suggestions and comments will make this website grow and benefit more and more people. Simply leave your message in the following form and send to us, and then we'll improve!", "feedback") {
 <style type="text/css" title="currentStyle">
     .formRow {
         padding: 5px 0px;
@@ -8,12 +8,23 @@
 <script type="text/javascript">
     var Feedback = {
         initialize: function () {
-            $("#saveButton").button();
-            $("#saveButton").click(Feedback.onSaveClicked);
+
         },
 
-        onSaveClicked: function () {
-            $("#restaurantForm").submit();
+        onSubmitClicked: function () {
+            //TODO - User RestReply to achieve this part
+            //TODO - Use bootstrap alert view
+            alert("Thank you for your participation!");
+            $("#comment").val($("#commentField").val());
+            if (Feedback.validate()) {
+                $( "#feedbackForm" ).submit();
+//                window.location = "/restaurantManager/list";
+            }
+        },
+
+        validate: function() {
+            //TODO - fill in the logic
+            return true;
         }
     }
     $(function () {
@@ -25,36 +36,37 @@
         <h3 class="panel-title">Message</h3>
     </div>
     <div class="panel-body">
-        <form id="contactForm" method="POST" action="/feedback/submit">
+        <form id="feedbackForm" method="POST" action="/feedback/submit">
+            <input type="hidden" id="comment" name="comment">
             <table width="100%" border="0">
                 <tr>
                     <td align="left">Your Email</td>
                     <td align="left" class="formRow">
-                        <input type="text" name="englishName" size="30" value="">
+                        <input type="text" name="email" size="30">
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Your Name (Optional)</td>
                     <td class="formRow">
-                        <input type="text" name="foreignName" value="">
+                        <input type="text" name="name">
                     </td>
                 </tr>
                 <tr>
                     <td align="left">Subject</td>
                     <td class="formRow">
-                        <input type="text" name="city" value="">
+                        <input type="text" name="subject">
                     </td>
                 </tr>
                 <tr>
                     <td align="left" style="vertical-align: top">Your Comment</td>
                     <td align="left" class="formRow">
-                        <textarea rows="8" cols="50"></textarea>
+                        <textarea id="commentField" name="commentField" rows="8" cols="50"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td align="left"></td>
                     <td align="right" class="formRow">
-                        <input type="submit" class="btn btn-primary">
+                        <button id="submitButton" class="btn btn-primary" onclick="javascript:Feedback.onSubmitClicked()">Submit</button>
                     </td>
                 </tr>
             </table>

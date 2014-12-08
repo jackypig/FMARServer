@@ -98,13 +98,8 @@
         <table id="restaurants">
             <thead>
             <tr>
-                <th align="left">English Name</th>
-                <th align="left">Foreign Name</th>
-                <th align="left">Category</th>
-                <th align="left">State</th>
-                <th align="left">City</th>
-                <th align="left">Address</th>
-                <th align="left">Phone Number</th>
+                <th align="left">Restaurant Photo</th>
+                <th align="left">Restaurant Info</th>
                 <th align="left">Special Offer</th>
                 @if(SessionManager.isSuperUser) {
                     <th align="left">Approved</th>
@@ -116,14 +111,19 @@
                 @for(restaurant <- restaurants){
                     @if(SessionManager.isSuperUser){
                         <tr>
-                            <td align="left">@restaurant.englishName</td>
-                            <td align="left">@restaurant.foreignName</td>
-                            <td align="left">@restaurant.category</td>
-                            <td align="left">@restaurant.state</td>
-                            <td align="left">@restaurant.city</td>
-                            <td align="left">@restaurant.address</td>
-                            <td align="left">@restaurant.telephone</td>
-                            <td align="left">@restaurant.specialOffer</td>
+                            <td align="left">
+                                <img class="img-responsive" src='@routes.Assets.at("images/demo1.jpg")' alt="Not available">
+                            </td>
+                            <td align="left">
+                                Name: @restaurant.englishName  (Also known as: @restaurant.foreignName)<br>
+                                Category: @restaurant.category<br>
+                                State: @restaurant.state City: @restaurant.city<br>
+                                Address: @restaurant.address<br>
+                                Telephone: @restaurant.telephone<br>
+                            </td>
+                            <td>
+                                @restaurant.specialOffer
+                            </td>
                             <td align="left">@restaurant.approved</td>
                             <td align="center" nowrap>
                                 <button class="btn btn-primary" onclick="javascript:RestaurantList.editClicked(@restaurant.id)">Edit</button>&nbsp;
@@ -140,14 +140,19 @@
                     }else{
                         @if(restaurant.approved){
                             <tr>
-                                <td align="left">@restaurant.englishName</td>
-                                <td align="left">@restaurant.foreignName</td>
-                                <td align="left">@restaurant.category</td>
-                                <td align="left">@restaurant.state</td>
-                                <td align="left">@restaurant.city</td>
-                                <td align="left">@restaurant.address</td>
-                                <td align="left">@restaurant.telephone</td>
-                                <td align="left">@restaurant.specialOffer</td>
+                                <td align="left">
+                                    <img class="img-responsive" src='@routes.Assets.at("images/demo1.jpg")' alt="Not available">
+                                </td>
+                                <td align="left">
+                                    @restaurant.englishName  (Also known as: @restaurant.foreignName)<br>
+                                    Category: @restaurant.category<br>
+                                    State: @restaurant.state City: @restaurant.city<br>
+                                    Address: @restaurant.address<br>
+                                    Telephone: @restaurant.telephone<br>
+                                </td>
+                                <td>
+                                    @restaurant.specialOffer
+                                </td>
                             </tr>
                         }
                     }
