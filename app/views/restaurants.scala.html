@@ -1,5 +1,13 @@
 @(restaurants: List[Restaurant])
 
+@imageUrl(image: Image) = @{
+    if (image == null) {
+        null;
+    } else {
+        image.mediaUrl;
+    }
+}
+
 @main("Restaurant List", "Find a restaurant!", "Here you can browse all the restaurants and find the ones close to you.", "restaurants") {
 <style type="text/css" title="currentStyle">
     @@import '@routes.Assets.at("lib/DataTables-1.10.4/media/css/jquery.dataTables.min.css")';
@@ -112,7 +120,7 @@
                     @if(SessionManager.isSuperUser){
                         <tr>
                             <td align="left">
-                                <img class="img-responsive" src='@routes.Assets.at("images/demo1.jpg")' alt="Not available">
+                                <img class="img-responsive" src='@imageUrl(restaurant.image)' alt="Not available">
                             </td>
                             <td align="left">
                                 Name: @restaurant.englishName  (Also known as: @restaurant.foreignName)<br>
@@ -141,7 +149,7 @@
                         @if(restaurant.approved){
                             <tr>
                                 <td align="left">
-                                    <img class="img-responsive" src='@routes.Assets.at("images/demo1.jpg")' alt="Not available">
+                                    <img class="img-responsive" src='@imageUrl(restaurant.image)' alt="Not available">
                                 </td>
                                 <td align="left">
                                     @restaurant.englishName  (Also known as: @restaurant.foreignName)<br>

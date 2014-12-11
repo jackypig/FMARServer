@@ -5,11 +5,15 @@ import com.google.gdata.client.spreadsheet.SpreadsheetService;
 import com.google.gdata.data.spreadsheet.*;
 import com.google.gdata.util.ServiceException;
 import core.Global;
-import models.Restaurant;
+import models.*;
 import play.Logger;
 import play.libs.Json;
+import play.mvc.Http;
 import play.mvc.Result;
 import rest.RestReply;
+import services.IBlobService;
+import util.IOUtil;
+import views.html.helper.form;
 import views.html.newRestaurant;
 
 import java.io.IOException;
@@ -33,6 +37,7 @@ public class RestaurantManager extends FmarController {
     }
 
     public static Result editRestaurant(Long id) {
+        //TODO - display image in the edit page
         Restaurant restaurant = Restaurant.findById(id);
         return ok(newRestaurant.render(restaurant));
     }
@@ -50,7 +55,8 @@ public class RestaurantManager extends FmarController {
     }
 
     public static Result saveRestaurant() {
-        Long restaurantId = formValueAsLong("restaurantId");
+        Http.MultipartFormData formData = request().body().asMultipartFormData();
+        Long restaurantId = new Long(parameter(formData.asFormUrlEncoded(), "restaurantId"));
         Restaurant restaurant;
         boolean newRestaurant = true;
         if (restaurantId != null) {
@@ -60,17 +66,18 @@ public class RestaurantManager extends FmarController {
             restaurant = new Restaurant();
         }
 
-        restaurant.address = formValue("address");
+        restaurant.address = parameter(formData.asFormUrlEncoded(), "address");
         restaurant.approved = false;
-        restaurant.category = formValue("category");
-        restaurant.city = formValue("city");
+        restaurant.category = parameter(formData.asFormUrlEncoded(), "category");
+        restaurant.city = parameter(formData.asFormUrlEncoded(), "city");
         restaurant.createdBy = SessionManager.getUser();
         restaurant.createdTimestamp = new Date();
-        restaurant.englishName = formValue("englishName");
-        restaurant.foreignName = formValue("foreignName");
-        restaurant.specialOffer = formValue("specialOffer");
-        restaurant.state = formValue("state");
-        restaurant.telephone = formValue("telephone");
+        restaurant.englishName = parameter(formData.asFormUrlEncoded(), "englishName");
+        restaurant.foreignName = parameter(formData.asFormUrlEncoded(), "foreignName");
+        restaurant.image = saveImage(formData, restaurant);
+        restaurant.specialOffer = parameter(formData.asFormUrlEncoded(), "specialOffer");
+        restaurant.state = parameter(formData.asFormUrlEncoded(), "state");
+        restaurant.telephone = parameter(formData.asFormUrlEncoded(), "telephone");
         restaurant.save();
 
         List<Restaurant> restaurants = Restaurant.findAll();
@@ -82,6 +89,35 @@ public class RestaurantManager extends FmarController {
         }
 
         return ok(views.html.restaurants.render(restaurants));
+    }
+
+    private static Image saveImage(Http.MultipartFormData formData, Restaurant restaurant) {
+        Logger.debug("Files received: " + formData.getFiles().size());
+        Http.MultipartFormData.FilePart filePart = formData.getFiles().get(0);
+        Logger.debug("Name: " + filePart.getFilename());
+        MimeType mimeType = MimeType.fromString(filePart.getContentType());
+        Logger.debug("mimeType: " + mimeType);
+
+        Image image = null;
+
+        if (formData.getFiles().size() != 0) {
+            image = new Image();
+            image.createdTimestamp = new Date();
+            image.fileLength = filePart.getFile().length();
+//        image.filename = Media.createUniqueName(restaurant.id, mimeType.imageType(), filePart.getFilename());
+            image.filename = filePart.getFilename();
+            image.mimeType = mimeType;
+            image.uploadedBy = SessionManager.getUser();
+            byte [] fileBytes = IOUtil.fileToBytes(filePart.getFile());
+            String blobKey = null;
+            Logger.debug("FileBytes: " + fileBytes.length);
+            blobKey = Global.getBlobService().put(IBlobService.BUCKET_IMAGE, image.filename, fileBytes, mimeType);
+            image.blobKey = blobKey;
+            image.status = MediaStatus.READY;
+            image.save();
+        }
+
+        return image;
     }
 
     public static Result restaurantList() {

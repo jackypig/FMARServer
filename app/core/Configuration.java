@@ -1,7 +1,9 @@
 package core;
 
 import services.AwsEmailService;
+import services.IBlobService;
 import services.IEmailService;
+import services.S3BlobService;
 
 /**
  * User: Ling Hung
@@ -29,5 +31,9 @@ public class Configuration {
 
     public String getAwsAccessKeySecret () {
         return "FbOYOn4tis645mc6Dx7srOWvLx8bzNSKKR7sJH0R";
+    }
+
+    public IBlobService getBlobService() {
+        return new S3BlobService();
     }
 }

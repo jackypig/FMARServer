@@ -42,6 +42,9 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
     @Basic(optional=true)
     public String foreignName;
 
+    @OneToOne(optional=true)
+    public Image image;
+
     @Basic(optional=false)
     public String state;
 

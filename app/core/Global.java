@@ -1,15 +1,13 @@
 package core;
 
 import play.GlobalSettings;
-import services.AuthenticateService;
-import services.AwsEmailService;
-import services.IEmailService;
+import services.*;
 import util.IOUtil;
 
 /**
  * User: Ling Hung
- * Comp: FetchMeARestaurant, Inc.
- * Proj: fmar-server
+ * Comp: MDChiShenMe, Inc.
+ * Proj: Server
  * Date: 10/26/14
  * Time: 4:37 PM
  */
@@ -18,12 +16,12 @@ public class Global extends GlobalSettings{
     public static String applicationVersion ;
     public static String getAwsAccessKeyId () {
 //        return configuration.getAwsAccessKeyId();
-        return "AKIAJWZ6PVW5UWXQF3WA";
+        return "AKIAJQS5CTQCDJ6Y4UXQ";
     }
 
     public static String getAwsAccessKeySecret () {
 //        return configuration.getAwsAccessKeySecret();
-        return "ifdURk4NsApbZ30q6oNb9mzU56UfjoCVhPvJDzDu";
+        return "FbOYOn4tis645mc6Dx7srOWvLx8bzNSKKR7sJH0R";
     }
 
     public static IEmailService getEmailService() {
@@ -33,6 +31,19 @@ public class Global extends GlobalSettings{
 
     public static String getSystemEmail () {
         return "jackypig0906@gmail.com";
+    }
+
+    public static IBlobService getBlobService() {
+//        return configuration.getBlobService();
+        return new S3BlobService();
+    }
+
+    public static String getCdnAudioDomain () {
+        return play.Configuration.root().getString("cdn.audio.domain");
+    }
+
+    public static String getCdnImageDomain () {
+        return play.Configuration.root().getString("cdn.image.domain");
     }
 
     public static boolean isDebugEnabled () {
