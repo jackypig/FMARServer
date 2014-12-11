@@ -82,10 +82,13 @@ public class RestaurantManager extends FmarController {
 
         List<Restaurant> restaurants = Restaurant.findAll();
         Collections.sort(restaurants);
+        //TODO - Think about how to send email when restaurants are updated
 //        sendNotifications(restaurants, 4);
 
         if (newRestaurant) {
-            sendNewRestaurantNotifications(restaurant);
+            sendNotifications(restaurant, "A new restaurant has been created");
+        } else {
+            sendNotifications(restaurant, "A restaurant has been modified");
         }
 
         return ok(views.html.restaurants.render(restaurants));
@@ -126,36 +129,43 @@ public class RestaurantManager extends FmarController {
         return ok(views.html.restaurants.render(restaurants));
     }
 
-    public static void sendNotifications (List<Restaurant> restaurants, int numberOfRestaurantToShow) {
-        Collections.shuffle(restaurants);
+//    public static void sendNotifications (List<Restaurant> restaurants, int numberOfRestaurantToShow) {
+//        Collections.shuffle(restaurants);
+//        String email = Global.getSystemEmail();
+//        String fromEmail = Global.getSystemEmail();
+//        String subject = "New restaurants are here";
+//        String body = "The following are the details of the new opened restaurants: <br><br>";
+//
+//        for (int i=0; i<numberOfRestaurantToShow; i++) {
+//            body += "English Name: " + restaurants.get(i).englishName + "<br>" +
+//                    "Foreign Name: " + restaurants.get(i).foreignName + "<br>" +
+//                    "Category: " + restaurants.get(i).category + "<br>" +
+//                    "State: " + restaurants.get(i).state + "<br>" +
+//                    "City: " + restaurants.get(i).city + "<br>" +
+//                    "Address: " + restaurants.get(i).address + "<br>" +
+//                    "Phone Number: " + restaurants.get(i).telephone + "<br><br>";
+//        }
+//
+//        body += "Thanks,<br>" +
+//                "The FetchMeARestaurant Team";
+//        Global.getEmailService().send(fromEmail, "FetchMeARestaurant Admin", new String[] {email}, subject, body, body);
+//    }
+
+    public static void sendNotifications (Restaurant restaurant, String emailSubject) {
         String email = Global.getSystemEmail();
         String fromEmail = Global.getSystemEmail();
-        String subject = "New restaurants are here";
-        String body = "The following are the details of the new opened restaurants: <br><br>";
-
-        for (int i=0; i<numberOfRestaurantToShow; i++) {
-            body += "English Name: " + restaurants.get(i).englishName + "<br>" +
-                    "Foreign Name: " + restaurants.get(i).foreignName + "<br>" +
-                    "Category: " + restaurants.get(i).category + "<br>" +
-                    "State: " + restaurants.get(i).state + "<br>" +
-                    "City: " + restaurants.get(i).city + "<br>" +
-                    "Address: " + restaurants.get(i).address + "<br>" +
-                    "Phone Number: " + restaurants.get(i).telephone + "<br><br>";
+        String subject = emailSubject;
+        String body = "The following are the details of the restaurant: <br><br>";
+        String imageField;
+        if (restaurant.image != null) {
+            imageField = "<img src=" + restaurant.image.imageUrl() + ">";
+        } else {
+            imageField = "No image uploaded";
         }
-
-        body += "Thanks,<br>" +
-                "The FetchMeARestaurant Team";
-        Global.getEmailService().send(fromEmail, "FetchMeARestaurant Admin", new String[] {email}, subject, body, body);
-    }
-
-    public static void sendNewRestaurantNotifications (Restaurant restaurant) {
-        String email = Global.getSystemEmail();
-        String fromEmail = Global.getSystemEmail();
-        String subject = "A new restaurant has been created";
-        String body = "The following are the details of the new created restaurant: <br><br>";
 
         body += "English Name: " + restaurant.englishName + "<br>" +
                 "Foreign Name: " + restaurant.foreignName + "<br>" +
+                "Image: " + imageField + "<br>" +
                 "Category: " + restaurant.category + "<br>" +
                 "State: " + restaurant.state + "<br>" +
                 "City: " + restaurant.city + "<br>" +
