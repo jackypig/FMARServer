@@ -1,6 +1,7 @@
 # Database structure update log
 
 #12/04/2014 - local database
+#12/04/2014 - dev
 alter table restaurant add approved boolean;
 update restaurant set approved = true;
 create table special_offer (
@@ -15,9 +16,11 @@ create table special_offer (
   );
 
 #12/05/2014 - local database
+#12/05/2014 - dev
 alter table restaurant add special_offer varchar(255);
 
 #12/10/2014 - local database
+#12/12/2014 - dev
 create table image (
   id                    BIGINT(20) auto_increment not null,
   blob_key              VARCHAR(255),

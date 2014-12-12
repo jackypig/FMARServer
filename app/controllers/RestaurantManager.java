@@ -37,7 +37,6 @@ public class RestaurantManager extends FmarController {
     }
 
     public static Result editRestaurant(Long id) {
-        //TODO - display image in the edit page
         Restaurant restaurant = Restaurant.findById(id);
         return ok(newRestaurant.render(restaurant));
     }
