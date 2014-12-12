@@ -7,16 +7,54 @@
     .formRow {
         padding: 5px 0px;
     }
+
+    .thumb {
+        height: 300px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
 </style>
 <script type="text/javascript">
     var NewRestaurant = {
         initialize: function () {
+            $("#restaurantPhoto").change(NewRestaurant.handleFileSelect);
             $("#saveButton").button();
             $("#saveButton").click(NewRestaurant.onSaveClick);
         },
 
         onSaveClicked: function () {
             $("#restaurantForm").submit();
+        },
+
+        handleFileSelect: function(evt) {
+            var files = evt.target.files; // FileList object
+
+            // Loop through the FileList and render image files as thumbnails.
+            for (var i = 0, f; f = files[i]; i++) {
+
+                // Only process image files.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+
+                var reader = new FileReader();
+
+                // Closure to capture the file information.
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        // Render thumbnail.
+                        $('#photoSelectRow').after('<tr>' +
+                                '<td></td>' +
+                                '<td>' +
+                                '<img class="thumb" src="' + e.target.result + '"/>' +
+                                '</td>' +
+                                '</tr>');
+                    };
+                })(f);
+
+                // Read in the image file as a data URL.
+                reader.readAsDataURL(f);
+            }
         },
 
         onBackClicked: function () {
@@ -39,10 +77,10 @@
         <form id="restaurantForm" method="POST" action="/restaurantManager/save" enctype="multipart/form-data">
             <input type="hidden" name="restaurantId" value="@restaurant.id">
             <table width="100%" border="0">
-                <tr>
+                <tr id="photoSelectRow">
                     <td align="left">Restaurant Picture</td>
                     <td align="left" class="formRow">
-                        <input type="file" name="picture">
+                        <input type="file" id="restaurantPhoto" name="restaurantPhoto" accept="image/*">
                     </td>
                 </tr>
                 <tr>
