@@ -55,7 +55,10 @@ public class RestaurantManager extends FmarController {
 
     public static Result saveRestaurant() {
         Http.MultipartFormData formData = request().body().asMultipartFormData();
-        Long restaurantId = new Long(parameter(formData.asFormUrlEncoded(), "restaurantId"));
+        Long restaurantId = null;
+        if (!parameter(formData.asFormUrlEncoded(), "restaurantId").equals("")) {
+            restaurantId = new Long(parameter(formData.asFormUrlEncoded(), "restaurantId"));
+        }
         Restaurant restaurant;
         boolean newRestaurant = true;
         if (restaurantId != null) {
@@ -95,14 +98,13 @@ public class RestaurantManager extends FmarController {
 
     private static Image saveImage(Http.MultipartFormData formData, Restaurant restaurant) {
         Logger.debug("Files received: " + formData.getFiles().size());
-        Http.MultipartFormData.FilePart filePart = formData.getFiles().get(0);
-        Logger.debug("Name: " + filePart.getFilename());
-        MimeType mimeType = MimeType.fromString(filePart.getContentType());
-        Logger.debug("mimeType: " + mimeType);
-
         Image image = null;
 
         if (formData.getFiles().size() != 0) {
+            Http.MultipartFormData.FilePart filePart = formData.getFiles().get(0);
+            Logger.debug("Name: " + filePart.getFilename());
+            MimeType mimeType = MimeType.fromString(filePart.getContentType());
+            Logger.debug("mimeType: " + mimeType);
             image = new Image();
             image.createdTimestamp = new Date();
             image.fileLength = filePart.getFile().length();
