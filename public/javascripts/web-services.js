@@ -2,31 +2,9 @@
  * Created by lh on 11/3/14.
  */
 var Alert = {
-    show: function (title, message, callback, width) {
-        $( "#alertDialogText" ).html(message);
-        $( "#alertDialogOkButton").button();
-        $( "#alertDialogOkButton").click(function () {
-            $( "#alertDialog" ).dialog( "close" );
-            if (callback != undefined && callback != null) {
-                callback.call(this);
-            }
-        });
-
-        if (width === undefined) {
-            width = 500;
-        }
-
-
-        $( "#alertDialog" ).dialog({
-            height: "auto",
-            modal: true,
-            open: function(event, ui) {
-                $(".ui-dialog-titlebar-close", this.parentNode).hide();
-            },
-            position: {my: "center top+100", at: "center top", of: window},
-            title: title,
-            width: width
-        });
+    show: function (message) {
+        $( "#alertBody" ).text(message);
+        $( "#alertDialog").modal('toggle');
     }
 };
 

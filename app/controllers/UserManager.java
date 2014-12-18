@@ -106,7 +106,7 @@ public class UserManager extends FmarController{
                                                     "<td style='font-family: Calibri, Helvetica, Arial, sans-serif; font-size: 14pt; padding: 0px 0 30px 0;'>" +
                                                         "Welcome to MDChiShenMe, this is a place where collects the special offers for the restaurants in DC area. By joining this community," +
                                                         "you can find and stay updated on the most recent special offers from the restaurants in DC area." +
-                                                        "You will receive email periodically, as we receive new special offers of the local restaurants, and the news about the newly opened restaurants. You can" +
+                                                        "You will receive email periodically, as we receive new special offers of the local restaurants, and the news about the newly opened restaurants. You can " +
                                                         "also share the restaurants and the special offers with us and we'll update our database immediately after verification. Thank you for joining us, welcome aboard!" +
                                                     "</td>" +
                                                 "</tr>" +

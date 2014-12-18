@@ -130,7 +130,7 @@ public class RestaurantManager extends FmarController {
         return ok(views.html.restaurants.render(restaurants));
     }
 
-//    public static void sendNotifications (List<Restaurant> restaurants, int numberOfRestaurantToShow) {
+//    public static void sendNewRestaurantNotification (List<Restaurant> restaurants, int numberOfRestaurantToShow) {
 //        Collections.shuffle(restaurants);
 //        String email = Global.getSystemEmail();
 //        String fromEmail = Global.getSystemEmail();

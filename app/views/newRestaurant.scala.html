@@ -23,7 +23,9 @@
         },
 
         onSaveClicked: function () {
-            $("#restaurantForm").submit();
+            if (NewRestaurant.validate()) {
+                $("#restaurantForm").submit();
+            }
         },
 
         handleFileSelect: function(evt) {
@@ -59,6 +61,16 @@
             }
         },
 
+        validate: function () {
+            //Validations for all the actions
+            if ($( "#englishName" ).val().trim() == "" ) {
+                Alert.show("English Name is blank. It is a required field.");
+                return false;
+            }
+
+            return true;
+        },
+
         onBackClicked: function () {
             window.location = "/restaurantManager/list";
         }
@@ -88,13 +100,13 @@
                 <tr>
                     <td align="left">English Name</td>
                     <td align="left" class="formRow">
-                        <input type="text" name="englishName" size="30" value="@restaurant.englishName">
+                        <input type="text" id="englishName" name="englishName" size="30" value="@restaurant.englishName">
                     </td>
                 </tr>
                 <tr>
-                    <td align="left">Foreign Name</td>
+                    <td align="left">Foreign Name (Optional)</td>
                     <td class="formRow">
-                        <input type="text" name="foreignName" value="@restaurant.foreignName">
+                        <input type="text" id="foreignName" name="foreignName" value="@restaurant.foreignName">
                     </td>
                 </tr>
                 <tr>
@@ -148,7 +160,7 @@
                     <td align="left"></td>
                     <td align="right" class="formRow">
                         <button type="button" class="btn btn-primary" onclick="javascript:NewRestaurant.onBackClicked()">Back</button>&nbsp;
-                        <input type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="javascript:NewRestaurant.onSaveClicked()">Submit</button>
                     </td>
                 </tr>
             </table>

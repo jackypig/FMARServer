@@ -148,23 +148,40 @@
     </div>
 </nav>
 
-<div id="alertOKDialog" class="alert alert-success" role="alert" style="display: none">
-    <strong>Well done!</strong> You've successfully registered your email!
-</div>
-
-<div id="alertFailDialog" class="alert alert-danger" role="alert" style="display: none">
-    <strong>Oh snap!</strong> We've already had your email, please check your inbox.
-</div>
-
 <div id="busyDialog" title="Just A Moment" style="display: none;text-align: center">
     <img src='@routes.Assets.at("images/hourglass-purple.jpeg")' width='100' />
     <div id="busyDialogText">Processing...</div>
 </div>
 
-<div id="alertDialog" title="Alert" style="display: none">
-    <div id="alertDialogText"></div>
-    <div id="alertDialogButtons" width="100%" style="padding-top: 20px;margin-left:auto;margin-right: auto;text-align:center">
-        <button type="button" id="alertDialogOkButton" style="width:125px;">OK</button>
+<div class="modal fade" id="alertDialog" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alertTitle">Oh snap! You got an error!</h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="alertBody"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDialog" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="confirmTitle">Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h5 id="confirmBody"></h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>
 
