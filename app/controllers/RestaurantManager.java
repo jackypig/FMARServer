@@ -76,7 +76,7 @@ public class RestaurantManager extends FmarController {
         restaurant.createdTimestamp = new Date();
         restaurant.englishName = parameter(formData.asFormUrlEncoded(), "englishName");
         restaurant.foreignName = parameter(formData.asFormUrlEncoded(), "foreignName");
-        restaurant.image = saveImage(formData, restaurant);
+        restaurant.image = handleImage(formData, restaurant.image);
         restaurant.specialOffer = parameter(formData.asFormUrlEncoded(), "specialOffer");
         restaurant.state = parameter(formData.asFormUrlEncoded(), "state");
         restaurant.telephone = parameter(formData.asFormUrlEncoded(), "telephone");
@@ -96,9 +96,13 @@ public class RestaurantManager extends FmarController {
         return ok(views.html.restaurants.render(restaurants));
     }
 
-    private static Image saveImage(Http.MultipartFormData formData, Restaurant restaurant) {
+    private static Image handleImage(Http.MultipartFormData formData, Image restaurantImage) {
         Logger.debug("Files received: " + formData.getFiles().size());
         Image image = null;
+
+        if (restaurantImage != null) {
+            Global.getBlobService().deleteBlob(IBlobService.BUCKET_IMAGE, restaurantImage.blobKey);
+        }
 
         if (formData.getFiles().size() != 0) {
             Http.MultipartFormData.FilePart filePart = formData.getFiles().get(0);

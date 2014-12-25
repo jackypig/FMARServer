@@ -16,5 +16,6 @@ public interface IBlobService {
     public Blob get(String bucket, String blobKey);
     public String getBlobUrl(String bucket, String blobKey);
     public String put(String bucket, String name, byte [] blobData, MimeType mimeType);
+    public void deleteBlob(String bucket, String blobKey);
     public void updateMimeType(String bucket, String blobKey, MimeType mimeType);
 }

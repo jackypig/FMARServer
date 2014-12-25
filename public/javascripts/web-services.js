@@ -2,9 +2,55 @@
  * Created by lh on 11/3/14.
  */
 var Alert = {
-    show: function (message) {
+    show: function (message, callback) {
         $( "#alertBody" ).text(message);
         $( "#alertDialog").modal('toggle');
+        callback.call(this);
+    }
+};
+
+var Confirm = {
+    okCallback: null,
+    cancelCallback: null,
+    delay: null,
+
+    cancelClicked: function() {
+        $( "#confirmDialog ").dialog( "close" );
+        if (Confirm.cancelCallback != null) {
+            Confirm.cancelCallback.call(this);
+        }
+    },
+
+    okClicked: function() {
+        $( "#confirmDialog ").dialog( "close" );
+        if (Confirm.okCallback != null) {
+            Confirm.okCallback.call(this);
+        }
+    },
+
+    show: function (title, message, okCallback, cancelCallback, options) {
+        $( "#confirmDialogText" ).html( message );
+
+        $( "#confirmDialogOkButton").button();
+        $( "#confirmDialogCancelButton").button();
+
+        $( "#confirmDialogOkButton").unbind("click").bind("click", Confirm.okClicked);
+        $( "#confirmDialogCancelButton").unbind("click").bind("click", Confirm.cancelClicked);
+        Confirm.okCallback = okCallback;
+        if (cancelCallback === undefined) {
+            Confirm.cancelCallback = null;
+        }
+
+        $( "#confirmDialog").dialog({
+            height: options !== undefined && options.height !== undefined ? options.height : 160,
+            modal: true,
+            open: function(event, ui) {
+                $(".ui-dialog-titlebar-close", this.parentNode).hide();
+            },
+            position: {my: "center top+100", at: "center top", of: window},
+            title: title,
+            width: options !== undefined && options.width !== undefined ? options.width : 450
+        });
     }
 };
 

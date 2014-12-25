@@ -1,5 +1,13 @@
 @(restaurant: Restaurant)
 
+@imageUrl(image: Image) = @{
+    if (image == null) {
+        null;
+    } else {
+        image.mediaUrl;
+    }
+}
+
 @main("New Restaurant", "Thank you for your contribution!",
         "We're glad that you want to share the restaurant that we don't have. Just fill in the following form then click submit, and we will refresh our database after verification. We greatly appreciate your participation!",
         "newRestaurant") {
@@ -18,8 +26,6 @@
     var NewRestaurant = {
         initialize: function () {
             $("#restaurantPhoto").change(NewRestaurant.handleFileSelect);
-            $("#saveButton").button();
-            $("#saveButton").click(NewRestaurant.onSaveClick);
         },
 
         onSaveClicked: function () {
@@ -68,6 +74,16 @@
                 return false;
             }
 
+            if ($( "#address" ).val().trim() == "" ) {
+                Alert.show("Address is blank. It is a required field.");
+                return false;
+            }
+
+            if ($( "#telephone" ).val().trim() == "" ) {
+                Alert.show("Phone number is blank. It is a required field.");
+                return false;
+            }
+
             return true;
         },
 
@@ -97,14 +113,22 @@
                         <input type="file" id="restaurantPhoto" name="restaurantPhoto" accept="image/*">
                     </td>
                 </tr>
+                @if(restaurant.image != null){
+                    <tr class="previewRow">
+                        <td></td>
+                        <td>
+                            <img class="thumb" src="@imageUrl(restaurant.image)"/>
+                        </td>
+                    </tr>
+                }
                 <tr>
-                    <td align="left">English Name</td>
+                    <td align="left">English Name (Required)</td>
                     <td align="left" class="formRow">
                         <input type="text" id="englishName" name="englishName" size="30" value="@restaurant.englishName">
                     </td>
                 </tr>
                 <tr>
-                    <td align="left">Foreign Name (Optional)</td>
+                    <td align="left">Foreign Name</td>
                     <td class="formRow">
                         <input type="text" id="foreignName" name="foreignName" value="@restaurant.foreignName">
                     </td>
@@ -139,15 +163,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="left">Address</td>
+                    <td align="left">Address (Required)</td>
                     <td align="left" class="formRow">
-                        <input type="text" name="address" size="50" value="@restaurant.address">
+                        <input type="text" name="address" id="address" size="50" value="@restaurant.address">
                     </td>
                 </tr>
                 <tr>
-                    <td align="left">Phone Number</td>
+                    <td align="left">Phone Number (Required)</td>
                     <td align="left" class="formRow">
-                        <input type="tel" name="telephone" value="@restaurant.telephone">
+                        <input type="tel" name="telephone" id="telephone" value="@restaurant.telephone">
                     </td>
                 </tr>
                 <tr>

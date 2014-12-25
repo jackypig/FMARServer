@@ -1,4 +1,4 @@
-@main("Feedback", "Let us know your opinions!",
+@main("Contact Us", "Let us know your opinions!",
 "It is our pleasure to have your opinions about this website. We treat your responses very seriously because your any suggestions and comments will make this website grow and benefit more and more people. Simply leave your message in the following form and send to us, and then we'll improve!", "feedback") {
 <style type="text/css" title="currentStyle">
     .formRow {
@@ -14,16 +14,29 @@
         onSubmitClicked: function () {
             //TODO - User RestReply to achieve this part
             //TODO - Use bootstrap alert view
-            alert("Thank you for your participation!");
             $("#comment").val($("#commentField").val());
             if (Feedback.validate()) {
                 $( "#feedbackForm" ).submit();
-//                window.location = "/restaurantManager/list";
             }
+            Alert.show("Thank you for your opinion, we will review your comments soon!");
         },
 
         validate: function() {
-            //TODO - fill in the logic
+            if ($( "#feedbackEmail" ).val().trim() == "" ) {
+                Alert.show("Your Email is blank. It is a required field.");
+                return false;
+            }
+
+            if ($( "#subject" ).val().trim() == "" ) {
+                Alert.show("The Subject is blank. It is a required field.");
+                return false;
+            }
+
+            if ($( "#commentField" ).val().trim() == "" ) {
+                Alert.show("Your Comment is blank. It is a required field.");
+                return false;
+            }
+
             return true;
         }
     }
@@ -42,7 +55,7 @@
                 <tr>
                     <td align="left">Your Email</td>
                     <td align="left" class="formRow">
-                        <input type="text" name="email" size="30">
+                        <input type="text" name="email" id="feedbackEmail" size="30">
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +67,7 @@
                 <tr>
                     <td align="left">Subject</td>
                     <td class="formRow">
-                        <input type="text" name="subject">
+                        <input type="text" id="subject" name="subject">
                     </td>
                 </tr>
                 <tr>
@@ -66,7 +79,7 @@
                 <tr>
                     <td align="left"></td>
                     <td align="right" class="formRow">
-                        <button id="submitButton" class="btn btn-primary" onclick="javascript:Feedback.onSubmitClicked()">Submit</button>
+                        <button type="button" class="btn btn-primary" onclick="javascript:Feedback.onSubmitClicked()">Submit</button>
                     </td>
                 </tr>
             </table>
