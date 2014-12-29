@@ -18,22 +18,22 @@
             if (Feedback.validate()) {
                 $( "#feedbackForm" ).submit();
             }
-            Alert.show("Thank you for your opinion, we will review your comments soon!");
+            Alert.show("Message Sent!", "Thank you for your opinion, we will review your comments soon!");
         },
 
         validate: function() {
             if ($( "#feedbackEmail" ).val().trim() == "" ) {
-                Alert.show("Your Email is blank. It is a required field.");
+                Alert.show("Oh snap! There is an error!", "Your Email is blank. It is a required field.");
                 return false;
             }
 
             if ($( "#subject" ).val().trim() == "" ) {
-                Alert.show("The Subject is blank. It is a required field.");
+                Alert.show("Oh snap! There is an error!", "The Subject is blank. It is a required field.");
                 return false;
             }
 
             if ($( "#commentField" ).val().trim() == "" ) {
-                Alert.show("Your Comment is blank. It is a required field.");
+                Alert.show("Oh snap! There is an error!", "Your Comment is blank. It is a required field.");
                 return false;
             }
 

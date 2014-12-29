@@ -2,7 +2,8 @@
  * Created by lh on 11/3/14.
  */
 var Alert = {
-    show: function (message, callback) {
+    show: function (title, message, callback) {
+        $( "#alertTitle").text(title);
         $( "#alertBody" ).text(message);
         $( "#alertDialog").modal('toggle');
         callback.call(this);

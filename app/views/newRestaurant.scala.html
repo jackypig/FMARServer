@@ -70,17 +70,17 @@
         validate: function () {
             //Validations for all the actions
             if ($( "#englishName" ).val().trim() == "" ) {
-                Alert.show("English Name is blank. It is a required field.");
+                Alert.show("Oh snap! There is an error!", "English Name is blank. It is a required field.");
                 return false;
             }
 
             if ($( "#address" ).val().trim() == "" ) {
-                Alert.show("Address is blank. It is a required field.");
+                Alert.show("Oh snap! There is an error!", "Address is blank. It is a required field.");
                 return false;
             }
 
             if ($( "#telephone" ).val().trim() == "" ) {
-                Alert.show("Phone number is blank. It is a required field.");
+                Alert.show("Oh snap! There is an error!", "Phone number is blank. It is a required field.");
                 return false;
             }
 

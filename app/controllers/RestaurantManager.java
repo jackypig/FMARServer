@@ -100,11 +100,10 @@ public class RestaurantManager extends FmarController {
         Logger.debug("Files received: " + formData.getFiles().size());
         Image image = null;
 
-        if (restaurantImage != null) {
-            Global.getBlobService().deleteBlob(IBlobService.BUCKET_IMAGE, restaurantImage.blobKey);
-        }
-
         if (formData.getFiles().size() != 0) {
+            if (restaurantImage != null) {
+                Global.getBlobService().deleteBlob(IBlobService.BUCKET_IMAGE, restaurantImage.blobKey);
+            }
             Http.MultipartFormData.FilePart filePart = formData.getFiles().get(0);
             Logger.debug("Name: " + filePart.getFilename());
             MimeType mimeType = MimeType.fromString(filePart.getContentType());
@@ -123,6 +122,8 @@ public class RestaurantManager extends FmarController {
             image.blobKey = blobKey;
             image.status = MediaStatus.READY;
             image.save();
+        } else if (restaurantImage != null){
+            image = restaurantImage;
         }
 
         return image;
