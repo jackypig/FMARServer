@@ -8,20 +8,33 @@ import play.libs.Json;
 import play.mvc.Result;
 import rest.RestReply;
 
+import java.util.List;
+
 /**
  * User: Ling Hung
- * Comp: XappMedia, Inc.
- * Proj: xapp-server
+ * Comp: MDChiShenMe, Inc.
+ * Proj: server
  * Date: 10/29/14
  * Time: 10:56 PM
  */
 public class UserManager extends FmarController{
+    public static Result list() {
+        List<User> users = User.findAll();
+        return ok(views.html.users.render(users));
+    }
+
+    public static Result delete(Long Id) {
+        User user = User.findById(Id);
+        user.delete();
+        return ok(Json.toJson(true));
+    }
+
     public static Result signInAuthenticate (String email, String password) {
         Logger.trace("Authenticating: " + email);
-//        boolean valid = Global.getAuthenticationService().authenticate(email, password);
-//        if (!valid) {
-//            return ok(RestController.error("INVALID_LOGIN", "Invalid email or password").toJson());
-//        }
+        boolean valid = Global.getAuthenticationService().authenticate(email, password);
+        if (!valid) {
+            return ok(RestController.error("INVALID_LOGIN", "Invalid email or password").toJson());
+        }
 
         User user = User.findByEmail(email);
 

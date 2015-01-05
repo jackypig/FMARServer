@@ -18,7 +18,13 @@
 <script type="text/javascript" >
     var RestaurantList = {
         initialize: function () {
-            var table = $( "#restaurants" ).DataTable();
+            var tableOptions = {
+                "bSort": false,
+                "bJQueryUI": false,
+                "bPaginate": true,
+                "sPaginationType": "full_numbers"
+            };
+            var table = $( "#restaurants" ).DataTable(tableOptions);
             $( ".buttonLink" ).button();
         },
 
@@ -103,11 +109,31 @@
 
 <div class="row">
     <div>
+        <table id="filter">
+            <tr>
+                <td style="padding-right: 50px">
+                    Filtered By:
+                </td>
+                <td style="padding-right: 50px">
+                    <input type="text" placeholder="Cuisine">
+                </td>
+                <td style="padding-right: 50px">
+                    Or/And Near By:
+                </td>
+                <td style="padding-right: 50px">
+                    <input type="text" placeholder="Place">
+                </td>
+                <td>
+                    <button type="button">Apply</button>
+                </td>
+            </tr>
+        </table>
+
         <table id="restaurants">
             <thead>
             <tr>
-                <th align="left">Restaurant Photo</th>
-                <th align="left">Restaurant Info</th>
+                <th align="left">Restaurant</th>
+                <th align="left"></th>
                 <th align="left">Special Offer</th>
                 @if(SessionManager.isSuperUser) {
                     <th align="left">Approved</th>
@@ -125,8 +151,6 @@
                             <td align="left">
                                 Name: @restaurant.englishName  (Also known as: @restaurant.foreignName)<br>
                                 Category: @restaurant.category<br>
-                                State: @restaurant.state City: @restaurant.city<br>
-                                Address: @restaurant.address<br>
                                 Telephone: @restaurant.telephone<br>
                             </td>
                             <td>
@@ -153,8 +177,6 @@
                                 </td>
                                 <td align="left">
                                     @restaurant.englishName  (Also known as: @restaurant.foreignName)<br>
-                                    Category: @restaurant.category<br>
-                                    State: @restaurant.state City: @restaurant.city<br>
                                     Address: @restaurant.address<br>
                                     Telephone: @restaurant.telephone<br>
                                 </td>

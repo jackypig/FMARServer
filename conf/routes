@@ -12,6 +12,8 @@ GET     /logout                     controllers.Application.logout()
 # User
 GET     /userManager/signInAuthenticate         controllers.UserManager.signInAuthenticate(email: String, password: String)
 GET     /userManager/stayUpdatedAuthenticate    controllers.UserManager.stayUpdatedAuthenticate(email: String)
+GET     /userManager/list                       controllers.UserManager.list()
+GET     /userManager/delete                     controllers.UserManager.delete(id: Long)
 POST    /userManager/saveUser                   controllers.UserManager.saveUser()
 
 # Restaurant

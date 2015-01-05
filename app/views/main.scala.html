@@ -131,6 +131,9 @@
             <ul class="nav navbar-nav">
                 <li @if(activePage == "home"){class="active"}><a href="/">Home</a></li>
                 <li @if(activePage == "restaurants" || activePage == "newRestaurant"){class="active"}><a href="/restaurantManager/list">Restaurants</a></li>
+                @if(SessionManager.isSuperUser){
+                    <li @if(activePage == "users"){class="active"}><a href="/userManager/list">Users</a></li>
+                }
                 <li @if(activePage == "feedback"){class="active"}><a href="/feedback">Contact Us</a></li>
             </ul>
             <div class="navbar-form navbar-right" role="form">

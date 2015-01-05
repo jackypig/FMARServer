@@ -20,12 +20,9 @@
                 var email = $( "#signInEmail" ).val();
                 var password = $( "#password" ).val();
                 UserService.signInAuthenticate( email, password, function (status) {
-    //                if (status.adminType === "SUPER_USER") {
-    //                    window.location = "/publisherManager/list";
-    //                } else {
+                    if (status) {
                         window.location = "/restaurantManager/list";
-    //                }
-
+                    }
                 });
             },
 
@@ -52,10 +49,6 @@
                     title: "Reset Password",
                     width: 450
                 });
-            },
-
-            publisherCreationPage: function () {
-                window.location="/adminManager/register";
             }
         }
 

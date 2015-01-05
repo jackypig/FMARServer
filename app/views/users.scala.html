@@ -1,0 +1,81 @@
+@(users: List[User])
+
+@main("User List", "User List", "For admin use only", "users") {
+<style type="text/css" title="currentStyle">
+    @@import '@routes.Assets.at("lib/DataTables-1.10.4/media/css/jquery.dataTables.min.css")';
+</style>
+
+<script type="text/javascript" language="javascript" src='@routes.Assets.at("lib/DataTables-1.10.4/media/js/jquery.dataTables.min.js")'></script>
+
+<script type="text/javascript" >
+    var UserList = {
+        initialize: function () {
+            $( "#users" ).DataTable();
+            $( ".buttonLink" ).button();
+        },
+
+        deleteClicked: function (Id) {
+//            Confirm.show("Confirm Delete",
+//                    "Are you sure you want to delete this restaurant?",
+//                    function () {
+//                        AdListService.deleteAd(adId, function () {
+//                            var data = $( "#restaurants" ).dataTable().fnGetData();
+//                            for (var i=0;i<data.length;i++) {
+//                                if (data[i][0] == adId) {
+//                                    $( "#restaurants" ).dataTable().fnDeleteRow(i);
+//                                }
+//                            }
+//                        });
+            var url = "/userManager/delete?id=" + Id;
+
+//                        BusyDialog.show("Deleting Ad", 750);
+            $.ajaxSetup({async:true, cache: false});
+            $.getJSON(url, null, function (status) {
+//                            BusyDialog.hide(function () {
+//                                callback.call(this, status);
+//                            });
+                window.location = "/userManager/list";
+            });
+//                    }
+//            );
+        },
+
+        editClicked: function(Id) {
+            window.location = "/userManager/edit?id=" + Id;
+        }
+    }
+
+    $(function() {
+        UserList.initialize();
+    })
+</script>
+
+<div class="row">
+    <div>
+        <table id="users">
+            <thead>
+            <tr>
+                <th align="left">First Name</th>
+                <th align="left">Last Name</th>
+                <th align="left">Email</th>
+                <th align="left">User Type</th>
+                <th align="left">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @for(user <- users){
+                <tr>
+                    <td align="left">@user.firstName</td>
+                    <td align="left">@user.lastName</td>
+                    <td align="left">@user.email</td>
+                    <td align="left">@user.loginType</td>
+                    <td align="left" nowrap>
+                        <button class="btn btn-danger" onclick="javascript:UserList.deleteClicked(@user.id)">Delete</button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+}
