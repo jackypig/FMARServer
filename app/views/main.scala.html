@@ -43,13 +43,6 @@
             initialize: function () {
                 $( "#SignInButton" ).click(SignInPage.authenticate);
                 $( "#resetButton" ).button();
-
-                //Handle the user hitting enter
-                $( " input " ).keypress(function(e) {
-                    if(e.which == 13) {
-                        SignInPage.authenticate();
-                    }
-                });
             },
 
             authenticate: function () {
@@ -58,9 +51,9 @@
 
             UserService.stayUpdatedAuthenticate( email, function (status) {
                 if (status.success) {
-//                    alert("Registered Succeeded!");
+                    alert("Your email has been recorded! Now you will get notified on the special offer of local restaurants.");
                 } else {
-//                    alert("Registration Failed!");
+                    alert("Oops, we've already had your email!");
                 }
             });
 

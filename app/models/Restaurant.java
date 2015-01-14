@@ -78,6 +78,10 @@ public class Restaurant extends Model implements Comparable<Restaurant> {
         return finder.all();
     }
 
+    public static List<Restaurant> findWithSpecialOffer() {
+        return finder.where().isNotNull("special_offer").findList();
+    }
+
     @Override
     public int compareTo(Restaurant restaurant) {
         if (restaurant.englishName != this.englishName) {

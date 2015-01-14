@@ -24,7 +24,7 @@ public class AwsEmailService implements IEmailService{
     //  http://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-formatted.html
     @Override
     public void send(String fromAddress, String fromName, String [] to, String subject, String bodyHtml, String bodyPlainText) {
-        System.out.println("Prepare to send email!");
+        Logger.debug("Prepare to send email!");
         String from = fromName + " <" + fromAddress + ">";
         //String from = fromAddress;
         SendEmailRequest request = new SendEmailRequest().withSource(from);
@@ -60,7 +60,7 @@ public class AwsEmailService implements IEmailService{
         // Call Amazon SES to send the message.
         try {
             client().sendEmail(request);
-            System.out.println("Email has been sent!");
+            Logger.debug("Special Offer Email has been sent to: " + toAddresses);
         } catch (AmazonClientException e) {
             e.printStackTrace();
 //            throw ExceptionUtil.rethrowError(e);

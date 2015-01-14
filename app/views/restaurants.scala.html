@@ -18,13 +18,8 @@
 <script type="text/javascript" >
     var RestaurantList = {
         initialize: function () {
-            var tableOptions = {
-                "bSort": false,
-                "bJQueryUI": false,
-                "bPaginate": true,
-                "sPaginationType": "full_numbers"
-            };
-            var table = $( "#restaurants" ).DataTable(tableOptions);
+
+            var table = $( "#restaurants" ).DataTable();
             $( ".buttonLink" ).button();
         },
 
