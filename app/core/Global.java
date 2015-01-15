@@ -130,14 +130,13 @@ public class Global extends GlobalSettings{
     }
 
     public static boolean isFakeApplication () {
-        return play.Configuration.root().getBoolean("application.fake", false);
+        return play.Configuration.root().getBoolean("application.fake", true);
     }
 
     @Override
     public void onStart(Application app) {
         //We call this so that the swagger api version shows our application version (which in turn comes from Git)
         ConfigFactory.config().setApiVersion(getApplicationVersion());
-
         //Add this here to prevent excessive logging from SpyCache
 //        System.setProperty("net.spy.log.LoggerImpl", "net.spy.memcached.compat.log.SunLogger");
 //        java.util.logging.Logger.getLogger("net.spy.memcached").setLevel(Level.WARNING);

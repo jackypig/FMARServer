@@ -1,5 +1,5 @@
 @(title: String, headLine: String = null, subHeadLine: String = null, activePage: String = "null")(content: Html)
-
+@import core.Global
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,7 +198,16 @@
     <hr>
 
     <footer>
-        <p>&copy; MDChiShenMe Inc. 2014</p>
+        <table border="0" width="100%">
+            <tr>
+                <td align="left">
+                    &copy; MDChiShenMe Inc. 2014
+                </td>
+                <td align="right">
+                    Version: @Global.getApplicationVersion
+                </td>
+            </tr>
+        </table>
     </footer>
 </div> <!-- /container -->
 </body>
