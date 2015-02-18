@@ -177,7 +177,7 @@ public class Global extends GlobalSettings{
             ActorRef SpecialOfferDispatcherActor = Akka.system().actorOf(Props.create(SpecialOfferEmailDispatcher.sendingSpecialOfferEmailActor.class));
             Akka.system().scheduler().schedule(
                     Duration.create(0, TimeUnit.MILLISECONDS),
-                    Duration.create(8, TimeUnit.HOURS),
+                    Duration.create(7, TimeUnit.DAYS),
                     SpecialOfferDispatcherActor,
                     "status",
                     Akka.system().dispatcher(),SpecialOfferDispatcherActor);
