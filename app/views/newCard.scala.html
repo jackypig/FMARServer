@@ -1,0 +1,186 @@
+@(card: Card)
+
+@main("New Card", "Thank you for your contribution!",
+"We're glad that you want to share the restaurant that we don't have. Just fill in the following form then click submit, and we will refresh our database after verification. We greatly appreciate your participation!",
+"newRestaurant") {
+<style type="text/css" title="currentStyle">
+    .formRow {
+        padding: 5px 0px;
+    }
+
+    .thumb {
+        height: 300px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;
+    }
+</style>
+<script type="text/javascript">
+    var NewRestaurant = {
+        initialize: function () {
+            $("#restaurantPhoto").change(NewRestaurant.handleFileSelect);
+        },
+
+        onSaveClicked: function () {
+            if (NewRestaurant.validate()) {
+                $("#restaurantForm").submit();
+            }
+        },
+
+        handleFileSelect: function(evt) {
+            $(".previewRow").remove();
+
+            var files = evt.target.files; // FileList object
+
+            // Loop through the FileList and render image files as thumbnails.
+            for (var i = 0, f; f = files[i]; i++) {
+
+                // Only process image files.
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+
+                var reader = new FileReader();
+
+                // Closure to capture the file information.
+                reader.onload = (function(theFile) {
+                    return function(e) {
+                        // Render thumbnail.
+                        $('#photoSelectRow').after('<tr class="previewRow">' +
+                                '<td></td>' +
+                                '<td>' +
+                                '<img class="thumb" src="' + e.target.result + '"/>' +
+                                '</td>' +
+                                '</tr>');
+                    };
+                })(f);
+
+                // Read in the image file as a data URL.
+                reader.readAsDataURL(f);
+            }
+        },
+
+        validate: function () {
+            //Validations for all the actions
+            if ($( "#englishName" ).val().trim() == "" ) {
+                Alert.show("Oh snap! There is an error!", "English Name is blank. It is a required field.");
+                return false;
+            }
+
+            if ($( "#address" ).val().trim() == "" ) {
+                Alert.show("Oh snap! There is an error!", "Address is blank. It is a required field.");
+                return false;
+            }
+
+            if ($( "#telephone" ).val().trim() == "" ) {
+                Alert.show("Oh snap! There is an error!", "Phone number is blank. It is a required field.");
+                return false;
+            }
+
+            return true;
+        },
+
+        onBackClicked: function () {
+            window.location = "/restaurantManager/list";
+        }
+    }
+    $(function () {
+        NewRestaurant.initialize();
+    });
+</script>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        @if(restaurant.id == null) {
+        <h3 class="panel-title">New Restaurant</h3>
+        }else {
+        <h3 class="panel-title">@restaurant.englishName</h3>
+        }
+    </div>
+    <div class="panel-body">
+        <form id="restaurantForm" method="POST" action="/restaurantManager/save" enctype="multipart/form-data">
+            <input type="hidden" name="restaurantId" value="@restaurant.id">
+            <table width="100%" border="0">
+                <tr id="photoSelectRow">
+                    <td align="left">Restaurant Picture</td>
+                    <td align="left" class="formRow">
+                        <input type="file" id="restaurantPhoto" name="restaurantPhoto" accept="image/*">
+                    </td>
+                </tr>
+                @if(restaurant.image != null){
+                <tr class="previewRow">
+                    <td></td>
+                    <td>
+                        <img class="thumb" src="@imageUrl(restaurant.image)"/>
+                    </td>
+                </tr>
+                }
+                <tr>
+                    <td align="left">English Name (Required)</td>
+                    <td align="left" class="formRow">
+                        <input type="text" id="englishName" name="englishName" size="30" value="@restaurant.englishName">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Foreign Name</td>
+                    <td class="formRow">
+                        <input type="text" id="foreignName" name="foreignName" value="@restaurant.foreignName">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Category</td>
+                    <td class="formRow">
+                        <select name="category" value="@restaurant.category">
+                            <option value="American" @if(restaurant.category == "American") {selected}>American</option>
+                            <option value="Chinese" @if(restaurant.category == "Chinese") {selected}>Chinese</option>
+                            <option value="Indian" @if(restaurant.category == "Indian") {selected}>Indian</option>
+                            <option value="Mexican" @if(restaurant.category == "Mexican") {selected}>Mexican</option>
+                            <option value="Korean" @if(restaurant.category == "Korean") {selected}>Korean</option>
+                            <option value="Japanese" @if(restaurant.category == "Japanese") {selected}>Japanese</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">State</td>
+                    <td class="formRow">
+                        <select name="state">
+                            <option value="DC" @if(restaurant.state == "DC") {selected}>DC</option>
+                            <option value="MD" @if(restaurant.state == "MD") {selected}>MD</option>
+                            <option value="VA" @if(restaurant.state == "VA") {selected}>VA</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">City</td>
+                    <td class="formRow">
+                        <input type="text" name="city" value="@restaurant.city">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Address (Required)</td>
+                    <td align="left" class="formRow">
+                        <input type="text" name="address" id="address" size="50" value="@restaurant.address">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Phone Number (Required)</td>
+                    <td align="left" class="formRow">
+                        <input type="tel" name="telephone" id="telephone" value="@restaurant.telephone">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">Special Offer</td>
+                    <td align="left" class="formRow">
+                        <input type="text" name="specialOffer" size="50" value="@restaurant.specialOffer">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td align="right" class="formRow">
+                        <button type="button" class="btn btn-primary" onclick="javascript:NewRestaurant.onBackClicked()">Back</button>&nbsp;
+                        <button type="button" class="btn btn-primary" onclick="javascript:NewRestaurant.onSaveClicked()">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+}
