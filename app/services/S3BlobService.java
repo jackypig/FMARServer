@@ -1,9 +1,7 @@
 package services;
 
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
-import core.Global;
 import models.Blob;
 import models.MimeType;
 import util.ExceptionUtil;
@@ -23,11 +21,15 @@ import java.util.UUID;
  * Time: 10:10 PM
  */
 public class S3BlobService implements IBlobService{
-    public S3BlobService() { }
+    private final AmazonS3Client client;
+
+    public S3BlobService() { 
+        client = new AmazonS3Client();
+    }
 
     @Override
     public Blob get(String bucket, String blobKey) {
-        S3Object s3Object = getClient().getObject(bucket, blobKey);
+        S3Object s3Object = client.getObject(bucket, blobKey);
         if (s3Object == null) {
             return null;
         }
@@ -80,13 +82,12 @@ public class S3BlobService implements IBlobService{
         //We make all objects that we place in the blob store public by default
         PutObjectRequest request = new PutObjectRequest(bucket, blobKey, new ByteArrayInputStream(blobData), metadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead);
-        getClient().putObject(request);
+        client.putObject(request);
         return blobKey;
     }
 
     @Override
     public void updateMimeType(String bucket, String blobKey, MimeType mimeType) {
-        AmazonS3Client client = getClient();
         S3Object object = client.getObject(bucket, blobKey);
 
         if (object == null) {
@@ -102,11 +103,11 @@ public class S3BlobService implements IBlobService{
     }
 
     public void deleteBlob(String bucket, String blobKey) {
-        getClient().deleteObject(bucket, blobKey);
+        client.deleteObject(bucket, blobKey);
     }
 
     public List<String> list(String bucket) {
-        ObjectListing listing = getClient().listObjects(bucket);
+        ObjectListing listing = client.listObjects(bucket);
 
         List<S3ObjectSummary> objects = listing.getObjectSummaries();
         List<String> keys = new ArrayList<String>();
@@ -115,13 +116,4 @@ public class S3BlobService implements IBlobService{
         }
         return keys;
     }
-
-    private AmazonS3Client getClient () {
-        BasicAWSCredentials credentials = new BasicAWSCredentials(Global.getAwsAccessKeyId(), Global.getAwsAccessKeySecret());
-        // Set AWS access credentials.
-        AmazonS3Client client = new AmazonS3Client(credentials);
-        return client;
-
-    }
-
 }

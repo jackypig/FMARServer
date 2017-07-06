@@ -25,14 +25,6 @@ public class Configuration {
         return new AwsEmailService();
     }
 
-    public String getAwsAccessKeyId () {
-        return "AKIAJQS5CTQCDJ6Y4UXQ";
-    }
-
-    public String getAwsAccessKeySecret () {
-        return "FbOYOn4tis645mc6Dx7srOWvLx8bzNSKKR7sJH0R";
-    }
-
     public IBlobService getBlobService() {
         return new S3BlobService();
     }

@@ -39,14 +39,6 @@ public class Global extends GlobalSettings{
         return play.Configuration.root().getString("application.url");
     }
 
-    public static String getAwsAccessKeyId () {
-        return configuration.getAwsAccessKeyId();
-    }
-
-    public static String getAwsAccessKeySecret () {
-        return configuration.getAwsAccessKeySecret();
-    }
-
 //    public static String getBaseUrlHttp () {
 //        return "http://" + getServerHost() + ":" + getServerPort();
 //    }

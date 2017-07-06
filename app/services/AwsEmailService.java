@@ -1,13 +1,10 @@
 package services;
 
 import com.amazonaws.AmazonClientException;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.simpleemail.*;
 import com.amazonaws.services.simpleemail.model.*;
-import core.Global;
 import models.EmailAuthenticationStatus;
 import play.Logger;
-//import util.ExceptionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +17,12 @@ import java.util.List;
  * Time: 4:03 PM
  */
 public class AwsEmailService implements IEmailService{
+    private final AmazonSimpleEmailServiceAsyncClient client;
+
+    public AwsEmailService() {
+        client = new AmazonSimpleEmailServiceAsyncClient();
+    }
+
     //Got this code from:
     //  http://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-formatted.html
     @Override
@@ -59,7 +62,7 @@ public class AwsEmailService implements IEmailService{
 
         // Call Amazon SES to send the message.
         try {
-            client().sendEmail(request);
+            client.sendEmail(request);
             Logger.debug("Special Offer Email has been sent to: " + toAddresses);
         } catch (AmazonClientException e) {
             e.printStackTrace();
@@ -74,7 +77,7 @@ public class AwsEmailService implements IEmailService{
     public void authenticateEmail(String fromEmail) {
         VerifyEmailAddressRequest emailAddressRequest = new VerifyEmailAddressRequest();
         emailAddressRequest.setEmailAddress(fromEmail);
-        client().verifyEmailAddress(emailAddressRequest);
+        client.verifyEmailAddress(emailAddressRequest);
     }
 
     @Override
@@ -82,7 +85,7 @@ public class AwsEmailService implements IEmailService{
         GetIdentityVerificationAttributesRequest request = new GetIdentityVerificationAttributesRequest();
         request.setIdentities(new ArrayList<String>());
         request.getIdentities().add(email);
-        GetIdentityVerificationAttributesResult result = client().getIdentityVerificationAttributes(request);
+        GetIdentityVerificationAttributesResult result = client.getIdentityVerificationAttributes(request);
         EmailAuthenticationStatus status = EmailAuthenticationStatus.NOT_ATTEMPTED;
         IdentityVerificationAttributes attributes = result.getVerificationAttributes().get(email);
         if (attributes == null) {
@@ -102,13 +105,4 @@ public class AwsEmailService implements IEmailService{
 
         return status;
     }
-
-    private AmazonSimpleEmailServiceClient client () {
-        BasicAWSCredentials credentials = new BasicAWSCredentials(Global.getAwsAccessKeyId(), Global.getAwsAccessKeySecret());
-        // Set AWS access credentials.
-        AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(credentials);
-        return client;
-
-    }
-
 }
